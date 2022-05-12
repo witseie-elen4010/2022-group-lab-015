@@ -1,5 +1,9 @@
 'use strict'
 
-let RegisteredUsers = []
+const RegisteredUsers = []
+const WordOfTheDay = ['']
 
-module.exports = RegisteredUsers
+module.exports = {
+  RegisteredUsers,
+  WordOfTheDay
+}
