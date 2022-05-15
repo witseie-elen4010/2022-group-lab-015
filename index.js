@@ -7,6 +7,7 @@ const app = express()
 const bodyParser = require('body-parser')
 
 const layoutRoutes = require('./routes/layoutRoutes')
+const profileRoutes = require('./routes/profileRoutes')
 const gamePlayRoutes = require('./routes/gamePlayRoutes')
 
 // Express should use body parser for JSON and URL encoded form bodies
@@ -16,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // mount routes
 // By default, the program should come here
 app.use('/', layoutRoutes)
+app.use('/profile', profileRoutes)
 app.use('/play', gamePlayRoutes)
 
 // Going to serve static files
