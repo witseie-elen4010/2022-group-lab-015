@@ -9,13 +9,17 @@
 <body>
     <h1>Update Username</h1>
 
-    <form action= "api/profile" method="post">
-
-        <input type="text" id ="UserName" name = "UserName" placeholder="Update Username" required>
-
-        <button type="button" id = "Update name">Submit name</button>
-
-    </form>
+    <form action="api/profile/update" method="post">
+        <div>
+        <label for="studentName">Enter current username:</label>
+        <input type="text"  name="olduser">
+        <label for="studentName">Enter new username:</label>
+        <input type="text"  name="newuser">
+        </div>
+        <div class="button">
+        <button type="submit">Submit name</button>
+        </div>
+        </form>
 </body>
 
 </html> 

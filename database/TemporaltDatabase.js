@@ -1,8 +1,8 @@
 'use strict'
 
-const RegisteredUsers = []
+let RegisteredUsers = []
 const WordOfTheDay = ['']
-const user = {
+let user = {
   username: "Muzi",
   password: "15609"
 }
