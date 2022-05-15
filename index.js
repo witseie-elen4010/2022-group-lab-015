@@ -9,6 +9,7 @@ const bodyParser = require('body-parser')
 const layoutRoutes = require('./routes/layoutRoutes')
 const profileRoutes = require('./routes/profileRoutes')
 const gamePlayRoutes = require('./routes/gamePlayRoutes')
+const AccountRoutes = require('./routes/AccountRoutes')
 
 // Express should use body parser for JSON and URL encoded form bodies
 app.use(bodyParser.json())
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/', layoutRoutes)
 app.use('/profile', profileRoutes)
 app.use('/play', gamePlayRoutes)
+app.use('/account', AccountRoutes)
 
 // Going to serve static files
 app.use('/cdn', express.static('public'))
