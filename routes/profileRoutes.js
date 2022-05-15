@@ -3,7 +3,7 @@
 const database = require('../database/TemporaltDatabase')
 const path = require('path')
 const express = require('express')
-const req = require('express/lib/request')
+//const req = require('express/lib/request')
 const profile = express.Router()
 
 profile.get('/createAccount', function(req, res){
