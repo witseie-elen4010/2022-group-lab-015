@@ -7,19 +7,20 @@
 <script defer src="index.js"></script>
 </head>
 <body>
+    <form action="account/api/Accounts" method="post"  >    
     <label for="username"><b>Username</b></label>
     <input type="text" id = "Username" name="username">
 
     <label for="psw"><b>Password</b></label>
-    <input type="password"  id= "Password" name="psw">
+    <input type="password"  id= "Password" name="password">
 
-    <button type="button" id ="login">Login</button>
+    <div class="button"><button type="submit" id ="login">Login</button></div>
+
    <p><a href="CreateAccount.html">Create Account</a></p>
    <p><a href="./profile/ForgotPassword">Forgot Password?</a></p>
     <a href = "./play/startgame" id ="playGame">Play wordle</a>
+    </form>
 </body>
 </div>
 </div>
-<p id="req1"></p>
-<p id="req2"></p>
 </html>
