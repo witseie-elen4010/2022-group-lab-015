@@ -13,14 +13,17 @@ gamePlay.get('/won', function (req, res) {
   res.sendFile(path.join(__dirname, '../views', 'gameplay', 'won.html'))
 })
 
+gamePlay.get('/tryAgain', function (req, res) {
+  res.sendFile(path.join(__dirname, '../views', 'gameplay', 'tryAgain.html'))
+})
+
 gamePlay.post('/api/play', function (req, res) {
   const playerGuess = req.body.guess.toLowerCase()
   const wordOfDay = setWordOfTheDay()[1]
-  console.log(playerGuess)
   if (playerGuess === wordOfDay) {
     res.redirect('/play/won')
   } else {
-    console.log('lost')
+    res.redirect('/play/tryAgain')
   }
 })
 
