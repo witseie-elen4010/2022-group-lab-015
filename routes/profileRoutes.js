@@ -10,4 +10,7 @@ profile.get('/ForgotPassword', function (req, res) {
   res.sendFile(path.join(__dirname, '../views', 'profile', 'ForgotPassword.html'))
 })
 
+profile.get('/UpdateUserName', function (req, res) {
+  res.sendFile(path.join(__dirname, '../views', 'profile', 'UpdateUsername.html'))
+})
 module.exports = profile
