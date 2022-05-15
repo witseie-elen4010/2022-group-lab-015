@@ -21,9 +21,11 @@ profile.post('/api/profile/createAccount', function (req, res) {
   passwordval = req.body.password.toLowerCase()
 
   const newUser = [
-    username = usernameval,
-    email = emailval,
-    password = passwordval
+    {
+    username: usernameval,
+    email: emailval,
+    password: passwordval
+  }
   ]
 
   //check if all necessary info has been added
