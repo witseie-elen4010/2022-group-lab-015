@@ -18,10 +18,9 @@ profile.get('/ResetPassword', function (req, res) {
 })
 
 profile.post('/api/createAccount', function (req, res) {
-  console.log("here!!!")
   let validAccount = false
 
-  const usernameval = "sam"//req.body.username.toLowerCase()
+  const usernameval = req.body.username.toLowerCase()
   const emailval = req.body.emailAddr.toLowerCase()
   const passwordval = req.body.password
 
@@ -37,8 +36,8 @@ profile.post('/api/createAccount', function (req, res) {
   if (newUser.name !== '' && newUser.email !== '' && newUser.password !== ''){
     validAccount = true
     if (validAccount) {
+      //console.log(emailval)
       database.RegisteredUsers.push(newUser)
-      console.log("correct")
       res.redirect('/')
     }
   } else res.redirect('/profile/createAccount')
