@@ -6,6 +6,10 @@ const express = require('express')
 // const req = require('express/lib/request')
 const profile = express.Router()
 
+profile.get('/createAccount', function(req, res){
+  res.sendFile(path.join(__dirname, '../views', 'profile', 'createAccount.html'))
+} )
+
 profile.get('/ForgotPassword', function (req, res) {
   res.sendFile(path.join(__dirname, '../views', 'profile', 'ForgotPassword.html'))
 })
@@ -13,6 +17,34 @@ profile.get('/ResetPassword', function (req, res) {
   res.sendFile(path.join(__dirname, '../views', 'profile', 'ResetPassword.html'))
 })
 
+profile.post('/api/createAccount', function (req, res) {
+  let validAccount = false
+
+  const usernameval = req.body.username.toLowerCase()
+  const emailval = req.body.emailAddr.toLowerCase()
+  const passwordval = req.body.password
+
+  const newUser = [
+    {
+    username: usernameval,
+    email: emailval,
+    password: passwordval
+  }
+  ]
+
+  //check if all necessary info has been added
+  if (newUser.name !== '' && newUser.email !== '' && newUser.password !== ''){
+    validAccount = true
+    if (validAccount) {
+      //console.log(emailval)
+      database.RegisteredUsers.push(newUser)
+      res.redirect('/')
+    }
+  } else res.redirect('/profile/createAccount')
+
+})
+
+module.exports = profile
 profile.post('/api/profile', function (req, res) {
   const currentUsername = req.body.user
   let index = -1
