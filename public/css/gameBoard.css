@@ -39,6 +39,10 @@ flex-direction: row;
     margin-right: 0.4em;
     margin-bottom: 0.4em;
     border-radius: 4px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .keyboard {
