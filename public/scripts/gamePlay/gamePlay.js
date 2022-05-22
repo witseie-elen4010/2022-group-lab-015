@@ -1,8 +1,8 @@
 'use strict'
 const buttonElement = document.querySelectorAll('button')
 const wordElement = document.querySelectorAll('.word-row')
-const row = 0
-const letter = 0
+let row = 0
+let column = 0
 
 buttonElement.forEach((element) => {
   element.addEventListener('click', function () {
@@ -11,9 +11,19 @@ buttonElement.forEach((element) => {
 })
 
 function keyIsPressed (valueOfKeyPressed) {
-  FillGameBoard(valueOfKeyPressed)
+  if (valueOfKeyPressed.toUpperCase() === 'ENTER') {
+    PlayerPressedEnter()
+  } else {
+    FillGameBoard(valueOfKeyPressed)
+  }
 }
 
 function FillGameBoard (userInput) {
-  wordElement[row].querySelectorAll('.word')[letter].innerText = userInput
+  wordElement[row].querySelectorAll('.word')[column].innerText = userInput
+  ++column
+}
+
+function PlayerPressedEnter () {
+  ++row
+  column = 0
 }
