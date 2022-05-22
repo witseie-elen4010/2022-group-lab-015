@@ -30,3 +30,14 @@ flex-direction: row;
     width: 4em;
     height: 4em;
 }
+
+.keyboard {
+    width: 100%;
+}
+
+.keyboard-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
