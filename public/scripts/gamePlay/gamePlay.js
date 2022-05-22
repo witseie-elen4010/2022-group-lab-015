@@ -1,8 +1,8 @@
 'use strict'
 const buttonElement = document.querySelectorAll('button')
 const wordElement = document.querySelectorAll('.word-row')
-const row = 1
-const letter = 1
+const row = 0
+const letter = 0
 
 buttonElement.forEach((element) => {
   element.addEventListener('click', function () {
@@ -14,6 +14,6 @@ function keyIsPressed (valueOfKeyPressed) {
   FillGameBoard(valueOfKeyPressed)
 }
 
-function FillGameBoard () {
-  console.log(wordElement)
+function FillGameBoard (userInput) {
+  wordElement[row].querySelectorAll('.word')[letter].innerText = userInput
 }
