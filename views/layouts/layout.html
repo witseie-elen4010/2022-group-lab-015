@@ -1,24 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Login Page</title>
-<meta charset="utf-8" />
-<!-- defer means that the JS code is executed after the DOM is fully built -->
-<script defer src="index.js"></script>
+    <title>Login Page</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- defer means that the JS code is executed after the DOM is fully built -->
+    <link rel="stylesheet" href="/cdn/css/layout.css">
+    <script defer src="index.js"></script>
 </head>
 <body>
-    <form action="account/api/Accounts" method="post"  >    
-    <label for="username"><b>Username</b></label>
-    <input type="text" id = "Username" name="username" required>
-
-    <label for="psw"><b>Password</b></label>
-    <input type="password"  id= "Password" name="password" required>
-
-    <div class="button"><button type="submit" id ="login">Login</button></div>
-   <p><a href="./profile/createAccount">Create Account</a></p>
-   <p><a href="./profile/ForgotPassword">Forgot Password?</a></p>
+    <div id="container">
+        <div id="game">
+            <header>
+                <h1 class="title">Wordle</h1>
+            </header>
+        </div>
+    </div>
+    <div>
+        <form action="account/api/Accounts" method="post"  >    
+            <label for="username"><b>Username</b></label>
+            <input type="text" id = "Username" name="username" required>
+    
+            <label for="psw"><b>Password</b></label>
+            <input type="password"  id= "Password" name="password" required>
+    
+            <div class="button"><button type="submit" id ="login" class="button">Login</button></div>
+            <p><a href="./profile/createAccount">Create Account</a></p>
+            <p><a href="./profile/ForgotPassword">Forgot Password?</a></p>
+       
+        </form>
+    </div>
    
-    </form>
 </body>
 </div>
 </div>
