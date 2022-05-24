@@ -16,6 +16,11 @@ buttonElement.forEach((element) => {
 function keyIsPressed (valueOfKeyPressed) {
   if (valueOfKeyPressed.toUpperCase() === 'ENTER') {
     PlayerPressedEnter()
+  }else if(valueOfKeyPressed.toUpperCase() === "DEL"){
+     Revert()
+     if(column !== 0){
+     column -= 1
+    }
   } else {
     FillGameBoard(valueOfKeyPressed)
   }
@@ -46,11 +51,23 @@ if(NumberofCorrectAlphabets === 5 ){
 
 }
   
-  
-
 function PlayerPressedEnter () {
   
   CheckIfGameEnded()
   ++row
   column = 0
+}
+
+function Revert(){
+  
+const WordAlphabet = wordElement[row].querySelectorAll('.word')
+
+for(let index = WordAlphabet.length - 1; index>= 0; index --){
+  let CurrentAlphabet = WordAlphabet[index]
+  if(CurrentAlphabet.innerText !== ""){
+    CurrentAlphabet.innerText = ""
+   break
+  }
+}
+
 }
