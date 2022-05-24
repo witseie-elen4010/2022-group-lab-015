@@ -44,9 +44,9 @@ function CheckIfGameEnded(){
  
 })
 if(NumberofCorrectAlphabets === 5 ){
-  alert('you win')
+  window.location.assign('/play/won')
 }else if(NumberofCorrectAlphabets !== 5 && row === 5){
-  alert ('loser')
+  window.location.assign('/play/tryAgain')
 }
 
 }
