@@ -48,6 +48,10 @@ function checkEnteredWord() {
     if (indexOfCharInWord === index) {
       NumberofCorrectAlphabets += 1
       element.classList.add('word-green')
+    } else if (indexOfCharInWord >= 0) {
+      
+      element.classList.add('word-orange')
+
     }
 
   })
