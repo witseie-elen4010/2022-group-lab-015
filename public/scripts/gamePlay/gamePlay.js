@@ -5,6 +5,7 @@ let row = 0
 let column = 0
 const WordOfTheDay = "shout"
 let NumberofCorrectAlphabets = 0
+let enteredWord = ""
 
 
 buttonElement.forEach((element) => {
@@ -15,6 +16,8 @@ buttonElement.forEach((element) => {
 
 function keyIsPressed (valueOfKeyPressed) {
   if (valueOfKeyPressed.toUpperCase() === 'ENTER') {
+    CheckCorrectInputs(enteredWord)
+    enteredWord = ""
     PlayerPressedEnter()
   }else if(valueOfKeyPressed.toUpperCase() === "DEL"){
      Revert()
@@ -23,6 +26,7 @@ function keyIsPressed (valueOfKeyPressed) {
     }
   } else {
     FillGameBoard(valueOfKeyPressed)
+    enteredWord = enteredWord + valueOfKeyPressed
   }
 }
 
@@ -54,6 +58,12 @@ if(NumberofCorrectAlphabets === 5 ){
 function PlayerPressedEnter () {
   
   CheckIfGameEnded()
+  //1. fetch the letters the player has entered.
+  //2. check if the letters in each column match 
+  //any of the letters in the wordoftheday.
+  //3. check if the index of the matching letters matches
+  //the index of the letters in wordoftheday
+  //4. make the block orange if they do not and green if they do 
   ++row
   column = 0
 }
@@ -70,4 +80,8 @@ for(let index = WordAlphabet.length - 1; index>= 0; index --){
   }
 }
 
+}
+
+function CheckCorrectInputs(elem) {
+  
 }
