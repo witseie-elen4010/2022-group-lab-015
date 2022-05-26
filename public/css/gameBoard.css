@@ -67,3 +67,8 @@ flex-direction: row;
     margin-bottom: 0.4em;
     border-radius: 4px;
 }
+
+.word-green {
+    background-color: green !important;
+    color : white !important;
+}

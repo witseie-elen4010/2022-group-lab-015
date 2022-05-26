@@ -17,8 +17,10 @@ buttonElement.forEach((element) => {
 function keyIsPressed (valueOfKeyPressed) {
   if (valueOfKeyPressed.toUpperCase() === 'ENTER') {
     CheckCorrectInputs(enteredWord)
+    
     enteredWord = ""
     PlayerPressedEnter()
+    checkEnteredWord()
   }else if(valueOfKeyPressed.toUpperCase() === "DEL"){
      Revert()
      if(column !== 0){
@@ -33,6 +35,22 @@ function keyIsPressed (valueOfKeyPressed) {
 function FillGameBoard (userInput) {
   wordElement[row].querySelectorAll('.word')[column].innerText = userInput
   ++column
+
+}
+
+function checkEnteredWord() {
+  const characterElements = wordElement[row-1].querySelectorAll('.word')
+  let NumberofCorrectAlphabets = 0
+
+  characterElements.forEach((element, index) => {
+    const indexOfCharInWord = WordOfTheDay.toLocaleUpperCase().indexOf(element.innerText.toUpperCase()) 
+
+    if (indexOfCharInWord === index) {
+      NumberofCorrectAlphabets += 1
+      element.classList.add('word-green')
+    }
+
+  })
 
 }
 
