@@ -77,3 +77,8 @@ flex-direction: row;
     background-color: orange !important;
     color : white !important;
 }
+
+.word-grey {
+    background-color: grey !important;
+    color : white !important;
+}
