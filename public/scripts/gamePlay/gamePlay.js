@@ -59,6 +59,8 @@ function CheckIfGameEnded(){
   
   element.classList.add('word-orange')
 
+}else {
+  element.classList.add('word-grey')
 }
 
 })
