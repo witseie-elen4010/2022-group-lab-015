@@ -1,12 +1,13 @@
 'use strict'
 const buttonElement = document.querySelectorAll('button')
 const wordElement = document.querySelectorAll('.word-row')
+
 let row = 0
 let column = 0
-const WordOfTheDay = "shout"
+
+const WordOfTheDay = "hElLo"
 let NumberofCorrectAlphabets = 0
 let enteredWord = ""
-
 
 buttonElement.forEach((element) => {
   element.addEventListener('click', function () {
@@ -17,7 +18,6 @@ buttonElement.forEach((element) => {
 function keyIsPressed (valueOfKeyPressed) {
   if (valueOfKeyPressed.toUpperCase() === 'ENTER') {
     CheckCorrectInputs(enteredWord)
-    
     enteredWord = ""
     PlayerPressedEnter()
     checkEnteredWord()
@@ -38,42 +38,31 @@ function FillGameBoard (userInput) {
 
 }
 
-function checkEnteredWord() {
-  const characterElements = wordElement[row-1].querySelectorAll('.word')
-  let NumberofCorrectAlphabets = 0
-
-  characterElements.forEach((element, index) => {
-    const indexOfCharInWord = WordOfTheDay.toLocaleUpperCase().indexOf(element.innerText.toUpperCase()) 
-
-    if (indexOfCharInWord === index) {
-      NumberofCorrectAlphabets += 1
-      element.classList.add('word-green')
-    } else if (indexOfCharInWord >= 0) {
-      
-      element.classList.add('word-orange')
-
-    }
-
-  })
-
-}
-
 function CheckIfGameEnded(){
-  const Word = wordElement[row].querySelectorAll('.word')
 
+  const Word = wordElement[row].querySelectorAll('.word')
+  NumberofCorrectAlphabets = 0
  Word.forEach((element, index)=> {
  const indexofwordoftheday = WordOfTheDay.toUpperCase().indexOf(element.innerText.toUpperCase())
  
  if(indexofwordoftheday === index){
   NumberofCorrectAlphabets += 1
+  element.classList.add('word-green')
+  if(NumberofCorrectAlphabets === 5 ){
+    setTimeout(function() {
+      //your code to be executed after 1 second
+      window.location.assign('/play/won')
+    }, 2000);
+  }else if(NumberofCorrectAlphabets !== 5 && row === 5){
+    window.location.assign('/play/tryAgain')
+  }
+} else if (indexofwordoftheday >= 0) {
+  
+  element.classList.add('word-orange')
+
 }
- 
+
 })
-if(NumberofCorrectAlphabets === 5 ){
-  window.location.assign('/play/won')
-}else if(NumberofCorrectAlphabets !== 5 && row === 5){
-  window.location.assign('/play/tryAgain')
-}
 
 }
   
