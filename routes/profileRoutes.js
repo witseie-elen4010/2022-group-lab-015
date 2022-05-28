@@ -1,7 +1,6 @@
 
 'use strict'
 const database = require('../database/TemporaltDatabase')
-const dataBase = require('../database/databaseConfig')
 const path = require('path')
 const express = require('express')
 // const req = require('express/lib/request')
