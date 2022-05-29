@@ -4,7 +4,7 @@ const wordElement = document.querySelectorAll('.word-row')
 
 let row = 0
 let column = 0
-const WordOfTheDay = "ShOuT"
+let WordOfTheDay = "ShOuT"
 let NumberofCorrectAlphabets = 0
 let enteredWord = ""
 
@@ -62,6 +62,7 @@ function CheckIfGameEnded(){
 }else {
   element.classList.add('word-grey')
 }
+
 
 })
 
