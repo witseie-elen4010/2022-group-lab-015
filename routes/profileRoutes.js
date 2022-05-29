@@ -19,26 +19,20 @@ profile.get('/ResetPassword', function (req, res) {
 
 profile.post('/api/createAccount', function (req, res) {
   let validAccount = false
-
+  const nameval = req.body.name.toLowerCase()
+  const surnameval = req.body.surname.toLowerCase()
   const usernameval = req.body.username.toLowerCase()
   const emailval = req.body.emailAddr.toLowerCase()
   const passwordval = req.body.password
 
-  let newUser =
-    {
-    username: usernameval,
-    email: emailval,
-    password: passwordval
-  }
-
-
   //check if all necessary info has been added
-  if (newUser.name !== '' && newUser.email !== '' && newUser.password !== ''){
+  if (usernameval !== '' && emailval !== '' && passwordval !== ''){
     validAccount = true
     if (validAccount) {
-      //console.log(emailval)
-      database.RegisteredUsers.push(newUser)
-      res.redirect('/')
+      databaseOperation.CreateUser(nameval,surnameval,emailval,usernameval,passwordval)
+      setTimeout(()=>{
+        res.redirect('/')
+      },1000)
     }
   } else res.redirect('/profile/createAccount')
 
