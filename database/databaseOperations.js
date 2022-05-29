@@ -49,4 +49,20 @@ operations.CreateUser = (name,surname,email,username,password) => {
         dataBase.sql.close()
      })
 }
+
+operations.DeleteUser = (username,password) => {
+   dataBase.sql.connect(dataBase.configurations).then(pool =>{
+       console.log('Connected to DB')
+        return pool.request()
+        .input('user',dataBase.sql.NVarChar,username)
+        .input('password',dataBase.sql.NVarChar,password)
+        .query('DELETE FROM WordleUsers WHERE Username = @user AND Password =@password')
+     }).then(result => {
+        console.log(result)
+        dataBase.sql.close()
+     }).catch(error => {
+        console.log(error.message)     
+        dataBase.sql.close()
+     })
+}
 module.exports = operations
