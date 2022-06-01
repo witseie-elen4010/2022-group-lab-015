@@ -9,7 +9,11 @@ gamePlay.get('/startgame', function (req, res) {
   res.sendFile(path.join(__dirname, '../views', 'gameplay', 'play.html'))
 })
 
-gamePlay.get('/instructions', function(req,res) {
+gamePlay.get('/multiplayer', function (req, res) {
+  res.sendFile(path.join(__dirname, '../views', 'gameplay', 'multiplayer.html'))
+})
+
+gamePlay.get('/instructions', function (req, res) {
   res.sendFile(path.join(__dirname, '../views', 'gameplay', 'GameInstructions.html'))
 })
 
