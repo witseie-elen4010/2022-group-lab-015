@@ -5,6 +5,14 @@
 
 .player1-side-left{
     background:black;
+    display: flex;
+    align-items: center;
+}
+
+.player2-side-right {
+    background:lightblue;
+    display: flex;
+    /*align-items: center;*/
 }
 
 @media screen and (min-width:768px) {
@@ -13,6 +21,56 @@
     }
 }
 
-.player2-side-right {
-    background:lightblue;
+
+.game-container {
+    width: 100%;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.gameBoard-Container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-row {
+    display: flex;
+    flex-direction: row;
+    }
+
+.guessBox {
+    border: 1px solid #353535;
+    width: 4em;
+    height: 4em;
+    margin-right: 0.4em;
+    margin-bottom: 0.4em;
+    border-radius: 4px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.keyboard {
+    width: 100%;
+    padding-bottom: 1em;
+}
+
+.keyboard-container {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.keyboard button {
+    background-color: #000;
+    color: #fff;
+    outline: none;
+    border: 1px solid #353535;
+    padding: 1em;
+    cursor: pointer;
+    margin-bottom: 0.4em;
+    border-radius: 4px;
 }
