@@ -1,0 +1,18 @@
+.player1-side-left, .player2-side-right {
+    height:50vh;
+    width:100%;
+}
+
+.player1-side-left{
+    background:black;
+}
+
+@media screen and (min-width:768px) {
+    .player1-side-left, .player2-side-right {
+        height:100vh;
+    }
+}
+
+.player2-side-right {
+    background:lightblue;
+}
