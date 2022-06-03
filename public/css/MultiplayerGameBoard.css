@@ -56,25 +56,46 @@
 }
 
 .keyboard {
-    display: grid;
     width: 100%;
     padding-bottom: 1em;
-    justify-content: center;
 }
 
 .keyboard-container {
     width: 100%;
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .keyboard button {
-    background-color: #000;
-    color: #fff;
+    background-color: hsl(
+       var(--hue, 200),
+       var(--saturation, 1%), 
+       var(--lightness,51%));
+    border: 1px;
+    color: white;
     outline: none;
-    border: 1px solid #353535;
+    border-radius: 0.25;
     padding: 1em;
+    align-items: center;
     cursor: pointer;
     margin-bottom: 0.4em;
     border-radius: 4px;
+}
+
+/*Reflections on keyboard according to placements*/
+.keyboard button.wrong {
+    --lightness: 23%;
+}
+
+.keyboard button.wrong-location {
+--hue: 49;
+--saturation: 51%;
+--lightness:47%;
+}
+
+.keyboard button.correct {
+    --hue: 115;
+    --saturation: 29%;
+    --lightness:43%;
 }
