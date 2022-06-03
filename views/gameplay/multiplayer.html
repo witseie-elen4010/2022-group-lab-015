@@ -17,54 +17,52 @@
 <body>
     <!--User browser should support JavaScript-->
     <noscript>JavaScript Error</noscript>
-    <div id="root">
-        <div class="game-container" id = "game-container">
+
             <div class="row no-gutters">
                 <div class="col-md-6 no-gutters">
                     <div class="player1-side-left">
-                        <div class = "gameBoard-Container">
-                            <div class ="board" id = "player1-board">
+                         <div class = "gameBoard-Container">
                                 <div class = "game-row" id="gameRow1">
-                                    <div class = "guessBox" id ="row1Box1"></div>
-                                    <div class = "guessBox" id ="row1Box2"></div>
-                                    <div class = "guessBox" id ="row1Box3"></div>
-                                    <div class = "guessBox" id ="row1Box4"></div>
-                                    <div class = "guessBox" id ="row1Box5"></div>
+                                    <div class = "guessBox" data-key ="row1Box1"></div>
+                                    <div class = "guessBox" data-key ="row1Box2"></div>
+                                    <div class = "guessBox" data-key ="row1Box3"></div>
+                                    <div class = "guessBox" data-key ="row1Box4"></div>
+                                    <div class = "guessBox" data-key ="row1Box5"></div>
                                 </div>
                                 <div class = "game-row" id="gameRow2">
-                                    <div class = "guessBox" id ="row2Box1"></div>
-                                    <div class = "guessBox" id ="row2Box2"></div>
-                                    <div class = "guessBox" id ="row2Box3"></div>
-                                    <div class = "guessBox" id ="row2Box4"></div>
-                                    <div class = "guessBox" id ="row2Box5"></div>
+                                    <div class = "guessBox" data-key ="row2Box1"></div>
+                                    <div class = "guessBox" data-key ="row2Box2"></div>
+                                    <div class = "guessBox" data-key ="row2Box3"></div>
+                                    <div class = "guessBox" data-key ="row2Box4"></div>
+                                    <div class = "guessBox" data-key ="row2Box5"></div>
                                 </div>
                                 <div class = "game-row" id="gameRow3">
-                                    <div class = "guessBox" id ="row3Box1"></div>
-                                    <div class = "guessBox" id ="row3Box2"></div>
-                                    <div class = "guessBox" id ="row3Box3"></div>
-                                    <div class = "guessBox" id ="row3Box4"></div>
-                                    <div class = "guessBox" id ="row3Box5"></div>
+                                    <div class = "guessBox"data-key ="row3Box1"></div>
+                                    <div class = "guessBox" data-key ="row3Box2"></div>
+                                    <div class = "guessBox" data-key ="row3Box3"></div>
+                                    <div class = "guessBox" data-key ="row3Box4"></div>
+                                    <div class = "guessBox" data-key ="row3Box5"></div>
                                 </div>
                                 <div class = "game-row" id="gameRow4">
-                                    <div class = "guessBox" id ="row4Box1"></div>
-                                    <div class = "guessBox" id ="row4Box2"></div>
-                                    <div class = "guessBox" id ="row4Box3"></div>
-                                    <div class = "guessBox" id ="row4Box4"></div>
-                                    <div class = "guessBox" id ="row4Box5"></div>
+                                    <div class = "guessBox" data-key ="row4Box1"></div>
+                                    <div class = "guessBox" data-key ="row4Box2"></div>
+                                    <div class = "guessBox" data-key ="row4Box3"></div>
+                                    <div class = "guessBox" data-key ="row4Box4"></div>
+                                    <div class = "guessBox" data-key ="row4Box5"></div>
                                 </div>
                                 <div class = "game-row" id="gameRow5">
-                                    <div class = "guessBox" id ="row5Box1"></div>
-                                    <div class = "guessBox" id ="row5Box2"></div>
-                                    <div class = "guessBox" id ="row5Box3"></div>
-                                    <div class = "guessBox" id ="row5Box4"></div>
-                                    <div class = "guessBox" id ="row5Box5"></div>
+                                    <div class = "guessBox" data-key ="row5Box1"></div>
+                                    <div class = "guessBox" data-key ="row5Box2"></div>
+                                    <div class = "guessBox" data-key ="row5Box3"></div>
+                                    <div class = "guessBox" data-key ="row5Box4"></div>
+                                    <div class = "guessBox" data-key ="row5Box5"></div>
                                 </div>
                                 <div class = "game-row" id="gameRow6">
-                                    <div class = "guessBox" id ="row6Box1"></div>
-                                    <div class = "guessBox" id ="row6Box2"></div>
-                                    <div class = "guessBox" id ="row6Box3"></div>
-                                    <div class = "guessBox" id ="row6Box4"></div>
-                                    <div class = "guessBox" id ="row6Box5"></div>
+                                    <div class = "guessBox" data-key ="row6Box1"></div>
+                                    <div class = "guessBox" data-key ="row6Box2"></div>
+                                    <div class = "guessBox" data-key ="row6Box3"></div>
+                                    <div class = "guessBox" data-key ="row6Box4"></div>
+                                    <div class = "guessBox" data-key ="row6Box5"></div>
                                 </div>
                             </div>
                             <div class ="keyboard" id = "keyboard">
@@ -105,64 +103,63 @@
                                         <button data-del ="DEL" id = "DEL" class = "key">DEL</button>
                                     </div>
                                 </div>
-                            </div>
+    
                         </div>
                     </div>
                 </div>
         
                 <div class="col-md-6 no-gutters">
                     <div class="player2-side-right">
-                        <div class = "gameBoard-Container">
-                            <div class ="board" id = "player2-board">
-                                <div class = "game-row" id="gameRow1">
+                        <div class = "gameBoard-Container"> 
+                                <div class = "game-rowP2" id="gameRow1">
                                     <div class = "guessBox" id ="row1Box1"></div>
                                     <div class = "guessBox" id ="row1Box2"></div>
                                     <div class = "guessBox" id ="row1Box3"></div>
                                     <div class = "guessBox" id ="row1Box4"></div>
                                     <div class = "guessBox" id ="row1Box5"></div>
                                 </div>
-                                <div class = "game-row" id="gameRow2">
+                                <div class = "game-rowP2" id="gameRow2">
                                     <div class = "guessBox" id ="row2Box1"></div>
                                     <div class = "guessBox" id ="row2Box2"></div>
                                     <div class = "guessBox" id ="row2Box3"></div>
                                     <div class = "guessBox" id ="row2Box4"></div>
                                     <div class = "guessBox" id ="row2Box5"></div>
                                 </div>
-                                <div class = "game-row" id="gameRow3">
+                                <div class = "game-rowP2" id="gameRow3">
                                     <div class = "guessBox" id ="row3Box1"></div>
                                     <div class = "guessBox" id ="row3Box2"></div>
                                     <div class = "guessBox" id ="row3Box3"></div>
                                     <div class = "guessBox" id ="row3Box4"></div>
                                     <div class = "guessBox" id ="row3Box5"></div>
                                 </div>
-                                <div class = "game-row" id="gameRow4">
+                                <div class = "game-rowP2" id="gameRow4">
                                     <div class = "guessBox" id ="row4Box1"></div>
                                     <div class = "guessBox" id ="row4Box2"></div>
                                     <div class = "guessBox" id ="row4Box3"></div>
                                     <div class = "guessBox" id ="row4Box4"></div>
                                     <div class = "guessBox" id ="row4Box5"></div>
                                 </div>
-                                <div class = "game-row" id="gameRow5">
+                                <div class = "game-rowP2" id="gameRow5">
                                     <div class = "guessBox" id ="row5Box1"></div>
                                     <div class = "guessBox" id ="row5Box2"></div>
                                     <div class = "guessBox" id ="row5Box3"></div>
                                     <div class = "guessBox" id ="row5Box4"></div>
                                     <div class = "guessBox" id ="row5Box5"></div>
                                 </div>
-                                <div class = "game-row" id="gameRow6">
+                                <div class = "game-rowP2" id="gameRow6">
                                     <div class = "guessBox" id ="row6Box1"></div>
                                     <div class = "guessBox" id ="row6Box2"></div>
                                     <div class = "guessBox" id ="row6Box3"></div>
                                     <div class = "guessBox" id ="row6Box4"></div>
                                     <div class = "guessBox" id ="row6Box5"></div>
                                 </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+
+    
 
 </body>
 
