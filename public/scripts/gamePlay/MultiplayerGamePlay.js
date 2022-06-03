@@ -15294,14 +15294,24 @@ const targetWords = [
   'shave'
 ]
 
+// let row = 0;
+// let col = 0;
+const board1 = document.querySelectorAll('.game-row')
+
+// console.log(board1[1].querySelectorAll('.guessBox')[1].attributes['data-key'].value)
+const guessBoard = document.querySelector('[data-board-guess]')
 startGame()
 // grab every button and row elements
 // const buttonElement = document.querySelectorAll('button')
-// const wordElement = document.querySelectorAll('game-row')
 
 function startGame () {
   document.addEventListener('click', handleMouseClick)
   document.addEventListener('keydown', handleKeyPressed)
+}
+
+function stopGame () {
+  document.removeEventListener('click', handleMouseClick)
+  document.removeEventListener('keydown', handleKeyPressed)
 }
 
 function handleMouseClick (clickEvent) {
@@ -15321,6 +15331,7 @@ function handleMouseClick (clickEvent) {
 }
 
 function handleKeyPressed (pressedKey) {
+  console.log(pressedKey)
   if (pressedKey.key === 'Enter') {
     submitGuess()
     return
@@ -15332,13 +15343,18 @@ function handleKeyPressed (pressedKey) {
   }
 
   // If key matches letters from A -> Z
-  if (pressedKey.key.matches(/^[a-z]$/)) {
+  if (pressedKey.key.match(/^[a-z]$/)) {
     pressKey(pressedKey.key)
   }
 }
 
-function pressKey () {
-
+function pressKey (Pressedkey) {
+// grab the 1st letter that does not have a letter defined in it
+  /* const nextTile = guessBoard.querySelector(':not([data-key])')
+  nextTile.dataset.lettr = Pressedkey.toUpperCase()
+  nextTile.textContent = Pressedkey
+  nextTile.dataset.state = 'active' */
+  board1[1].querySelectorAll('.guessBox')[1].innerText = Pressedkey.toUpperCase()
 }
 
 function deleteEvent () {
