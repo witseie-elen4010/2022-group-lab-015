@@ -63,7 +63,6 @@ res.redirect('/')
 }else{
 res.redirect('/profile/ResetPassword')
 }}
-  
     },1000)
     dataBase.sql.close()
   }).catch(error => {
@@ -73,5 +72,8 @@ res.redirect('/profile/ResetPassword')
 })
 profile.post('/api/profile/return', function (req, res) {
   res.redirect('/')
+})
+profile.post('/api/profile/back', function (req, res) {
+  res.redirect('../../../homepage')
 })
 module.exports = profile
