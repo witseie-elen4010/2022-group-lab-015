@@ -25,10 +25,10 @@
                         <div class = "gameBoard-Container">
                             <div class ="board" id = "player1-board">
                                 <div class = "game-row" id="gameRow1">
-                                    <div class = "guessBox" id ="row1Box1"></div>
-                                    <div class = "guessBox" id ="row1Box2"></div>
-                                    <div class = "guessBox" id ="row1Box3"></div>
-                                    <div class = "guessBox" id ="row1Box4"></div>
+                                    <div class = "guessBox" id ="row1Box1" data-state ="active">A</div>
+                                    <div class = "guessBox" id ="row1Box2" data-state ="wrong-location">A</div>
+                                    <div class = "guessBox" id ="row1Box3" data-state ="correct-location">A</div>
+                                    <div class = "guessBox" id ="row1Box4" data-state ="wrong">D</div>
                                     <div class = "guessBox" id ="row1Box5"></div>
                                 </div>
                                 <div class = "game-row" id="gameRow2">
@@ -70,7 +70,7 @@
                             <div class ="keyboard" id = "keyboard">
                                 <div class = "keyboard-container">
                                     <div>
-                                        <button value ="Q" id = "Q" class = "key wrong">Q</button>
+                                        <button value ="Q" id = "Q" class = "key">Q</button>
                                         <button value ="W" id = "W" class = "key">W</button>
                                         <button value ="E" id = "E" class = "key">E</button>
                                         <button value ="R" id = "R" class = "key">R</button>
