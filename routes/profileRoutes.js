@@ -4,6 +4,7 @@ const dataBase = require('../database/databaseConfig')
 const databaseOperation = require('../database/databaseOperations')
 const path = require('path')
 const express = require('express')
+const operations = require('../database/databaseOperations')
 const profile = express.Router()
 
 profile.get('/createAccount', function(req, res){
@@ -16,7 +17,9 @@ profile.get('/ForgotPassword', function (req, res) {
 profile.get('/ResetPassword', function (req, res) {
   res.sendFile(path.join(__dirname, '../views', 'profile', 'ResetPassword.html'))
 })
-
+profile.get('/DeleteAccount', function (req, res) {
+  res.sendFile(path.join(__dirname, '../views', 'profile', 'DeleteAccount.html'))
+})
 profile.post('/api/createAccount', function (req, res) {
   let validAccount = false
   const nameval = req.body.name.toLowerCase()
@@ -61,7 +64,6 @@ res.redirect('/')
 }else{
 res.redirect('/profile/ResetPassword')
 }}
-  
     },1000)
     dataBase.sql.close()
   }).catch(error => {
@@ -69,7 +71,18 @@ res.redirect('/profile/ResetPassword')
      dataBase.sql.close()
   })
 })
+profile.post('/api/profile/delete', function (req, res) {
+  const Username = req.body.username
+  const Password = req.body.userpassword
+  operations.DeleteUser(Username,Password)
+  setTimeout(()=>{
+    res.redirect('/')
+  },1000)
+})
 profile.post('/api/profile/return', function (req, res) {
   res.redirect('/')
+})
+profile.post('/api/profile/back', function (req, res) {
+  res.redirect('../../../homepage')
 })
 module.exports = profile
