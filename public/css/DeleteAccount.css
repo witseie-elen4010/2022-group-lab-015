@@ -37,6 +37,12 @@ input[type = text]{
     font-size:18px;
     border-radius:0 10px 0 0;
  }
+ input[type = password]{
+    padding:5px;
+    width:80%;
+    font-size:18px;
+    border-radius:0 10px 0 0;
+ }
  input[type = submit]{
     padding:5px;
     width:10;
