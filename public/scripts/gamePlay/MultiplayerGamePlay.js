@@ -15294,8 +15294,8 @@ const targetWords = [
   'shave'
 ]
 
-// let row = 0;
-// let col = 0;
+ let row = 0;
+ let col = 0;
 const board1 = document.querySelectorAll('.game-row')
 
 // console.log(board1[1].querySelectorAll('.guessBox')[1].attributes['data-key'].value)
@@ -15316,16 +15316,16 @@ function stopGame () {
 
 function handleMouseClick (clickEvent) {
   if (clickEvent.target.matches('[data-key]')) {
-    pressKey(clickEvent.target.key)
+    pressKey(clickEvent.target.dataset.key)
     return
   }
 
-  if (clickEvent.target.matches('[data-entr]')) {
+  if (clickEvent.target.match('[data-entr]')) {
     submitGuess()
     return
   }
 
-  if (clickEvent.target.matches('[data-del]')) {
+  if (clickEvent.target.match('[data-del]')) {
     deleteEvent()
   }
 }
@@ -15350,11 +15350,13 @@ function handleKeyPressed (pressedKey) {
 
 function pressKey (Pressedkey) {
 // grab the 1st letter that does not have a letter defined in it
-  /* const nextTile = guessBoard.querySelector(':not([data-key])')
-  nextTile.dataset.lettr = Pressedkey.toUpperCase()
+  /* const nextTile = guessBoard.querySelector(':not([data-letter ])')
+  nextTile.dataset.letter = Pressedkey.toUpperCase()
   nextTile.textContent = Pressedkey
   nextTile.dataset.state = 'active' */
-  board1[1].querySelectorAll('.guessBox')[1].innerText = Pressedkey.toUpperCase()
+  board1[row].querySelectorAll('.guessBox')[col].innerText = Pressedkey.toUpperCase()
+  board1[row].querySelectorAll('.guessBox')[col].dataset.state = 'active'
+  ++col
 }
 
 function deleteEvent () {
