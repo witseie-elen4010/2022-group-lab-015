@@ -1,6 +1,8 @@
 .player1-side-left, .player2-side-right {
     height:50vh;
     width:100%;
+    flex-direction: column;
+    padding: 1em;
 }
 
 .player1-side-left{
@@ -54,8 +56,10 @@
 }
 
 .keyboard {
+    display: grid;
     width: 100%;
     padding-bottom: 1em;
+    justify-content: center;
 }
 
 .keyboard-container {
