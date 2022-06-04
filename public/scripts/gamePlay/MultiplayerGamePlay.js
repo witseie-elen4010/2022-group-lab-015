@@ -15297,10 +15297,12 @@ const targetWords = [
 let row = 0
 let col = 0
 const board1 = document.querySelectorAll('.game-row')
-const WORD_LENGTH = 5
+const WORD_LENGTH = 4
+const DaysOffset = new Date(2022, 5, 4)
+const msOffset = Date.now() - DaysOffset
+const Actual = msOffset / 3600 / 24000
+const wordOfTheDay = targetWords[Math.floor(Actual)]
 
-// console.log(board1[1].querySelectorAll('.guessBox')[1].attributes['data-key'].value)
-const guessBoard = document.querySelector('[data-board-guess]')
 startGame()
 // grab every button and row elements
 // const buttonElement = document.querySelectorAll('button')
@@ -15351,7 +15353,7 @@ function handleKeyPressed (pressedKey) {
 
 function pressKey (Pressedkey) {
 // restrict guess to a five letter word
-  if (col > 4) return
+  if (col > WORD_LENGTH) return
   board1[row].querySelectorAll('.guessBox')[col].innerText = Pressedkey.toUpperCase()
   board1[row].querySelectorAll('.guessBox')[col].dataset.state = 'active'
   ++col
@@ -15372,5 +15374,11 @@ function deleteEvent () {
 }
 
 function submitGuess () {
-
+  if (col === WORD_LENGTH) {
+    // Do some further checks
+  } else {
+    // Notification('Word Too Short')
+    // Some anime
+  }
+  console.log('should submit')
 }
