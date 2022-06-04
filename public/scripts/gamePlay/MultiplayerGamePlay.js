@@ -15310,7 +15310,7 @@ startGame()
 
 function startGame () {
   document.addEventListener('click', handleMouseClick)
-  document.addEventListener('keydown', handleKeyPressed)
+  // document.addEventListener('keydown', handleKeyPressed)
 }
 
 function stopGame () {
@@ -15362,8 +15362,9 @@ function pressKey (Pressedkey) {
 }
 
 function deleteEvent () {
-  if ((col - 1) < -1) return
-  if (col === 0) {
+  const myCol = col
+  if ((myCol - 1) < -1) return
+  if (myCol === 0) {
     board1[row].querySelectorAll('.guessBox')[col].innerText = ''
     delete board1[row].querySelectorAll('.guessBox')[col].dataset.state
   }
@@ -15376,11 +15377,18 @@ function deleteEvent () {
 }
 
 function submitGuess () {
+  let PlayerGuess = ''
   if (col < 5) {
     Notification('Word Too Short')
-    VibrateTiles()
+    // VibrateTiles()
   } else {
     // Do some operations
+    board1.forEach(element => {
+      PlayerGuess += element.innerText
+    })
+    if (!dictionary.includes(PlayerGuess)) {
+      Notification('Not in word list')
+    }
   }
 }
 
@@ -15397,11 +15405,11 @@ function Notification (message, duration = 1000) {
     return
   }
 
-  //fade the Notification out after some time
+  // fade the Notification out after some time
   setTimeout(() => {
     alert.classList.add('hide')
     alert.addEventListener('transitionend', () => {
-        alert.remove()
+      alert.remove()
     })
   }, duration)
 }
