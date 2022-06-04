@@ -43,19 +43,17 @@ operations.CreateUser = async (name, surname, email, username, password) => {
   }
 }
 
-operations.DeleteUser = (username, password) => {
-  dataBase.sql.connect(dataBase.configurations).then(pool => {
-    console.log('Connected to DB')
-    return pool.request()
-      .input('user', dataBase.sql.NVarChar, username)
-      .input('password', dataBase.sql.NVarChar, password)
-      .query('DELETE FROM WordleUsers WHERE Username = @user AND Password =@password')
-  }).then(result => {
-    console.log(result)
-    dataBase.sql.close()
-  }).catch(error => {
+operations.DeleteUser = async (username, password) => {
+  try {
+    let instance = await dataBase.pools
+    await instance.request()
+    .input('user', dataBase.sql.NVarChar, username)
+    .input('password', dataBase.sql.NVarChar, password)
+    .query('DELETE FROM WordleUsers WHERE Username = @user AND Password =@password')
+    return true
+  } catch (error) {
     console.log(error.message)
-    dataBase.sql.close()
-  })
+    return false
+  }
 }
 module.exports = operations
