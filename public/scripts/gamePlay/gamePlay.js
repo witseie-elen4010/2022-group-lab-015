@@ -38,27 +38,29 @@ function FillGameBoard (userInput) {
 
 function CheckIfGameEnded () {
   const Word = wordElement[row].querySelectorAll('.word')
+  let WordOfTheDay = 'HELLO'
   NumberofCorrectAlphabets = 0
-  Word.forEach((element, index) => {
-    const indexofwordoftheday = WordOfTheDay.toUpperCase().indexOf(element.innerText.toUpperCase())
-
-    if (indexofwordoftheday === index) {
+ for(let index = 0;index<5;index++){
+  
+     if(Word[index].innerText === WordOfTheDay[index]){
+      WordOfTheDay = WordOfTheDay.replace(Word[index].innerText,' ')
       NumberofCorrectAlphabets += 1
-      element.classList.add('word-green')
-      if (NumberofCorrectAlphabets === 5) {
-        setTimeout(function () {
-          // your code to be executed after 1 second
-          window.location.assign('/play/won')
-        }, 2000)
-      } else if (NumberofCorrectAlphabets !== 5 && row === 5) {
-        window.location.assign('/play/tryAgain')
+       Word[index].classList.add('word-green')
+       if (NumberofCorrectAlphabets === 5) {
+         setTimeout(function () {
+           // your code to be executed after 1 second
+           window.location.assign('/play/won')
+         }, 2000)
+       } else if (NumberofCorrectAlphabets !== 5 && row === 5) {
+         window.location.assign('/play/tryAgain')
+       }
+      }else if(WordOfTheDay.includes(Word[index].innerText) && Word[index] !== WordOfTheDay[index]){
+        WordOfTheDay = WordOfTheDay.replace(Word[index].innerText,'')
+           Word[index].classList.add('word-orange')
       }
-    } else if (indexofwordoftheday >= 0) {
-      element.classList.add('word-orange')
-    } else {
-      element.classList.add('word-grey')
-    }
-  })
+    else{ Word[index].classList.add('word-grey') }
+  }
+
 }
 
 function PlayerPressedEnter () {
