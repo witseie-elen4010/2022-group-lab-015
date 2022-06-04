@@ -15332,6 +15332,7 @@ function handleMouseClick (clickEvent) {
   if (clickEvent.target.matches('[data-del]')) {
     deleteEvent()
   }
+
 }
 
 function handleKeyPressed (pressedKey) {
@@ -15357,7 +15358,7 @@ function pressKey (Pressedkey) {
   if (col > WORD_LENGTH) return
   board1[row].querySelectorAll('.guessBox')[col].innerText = Pressedkey.toUpperCase()
   board1[row].querySelectorAll('.guessBox')[col].dataset.state = 'active'
-  ++col
+  if (col < 5) ++col
 }
 
 function deleteEvent () {
@@ -15375,15 +15376,15 @@ function deleteEvent () {
 }
 
 function submitGuess () {
-  if (col === WORD_LENGTH) {
-    // Do some further checks
-  } else {
+  if (col < 5) {
     Notification('Word Too Short')
-    // Some anime
+    VibrateTiles()
+  } else {
+    // Do some operations
   }
-  console.log('should submit')
 }
 
+// alert player if guess is lessr than 5 characters
 function Notification (message, duration = 1000) {
   const alert = document.createElement('div')
   alert.textContent = message
@@ -15396,10 +15397,22 @@ function Notification (message, duration = 1000) {
     return
   }
 
+  //fade the Notification out after some time
   setTimeout(() => {
     alert.classList.add('hide')
     alert.addEventListener('transitionend', () => {
         alert.remove()
     })
   }, duration)
+}
+
+// vibrate tiles
+function VibrateTiles () {
+  for (let column = 0; column <= col; ++column) {
+    board1[row].querySelectorAll('.guessBox')[column].classList.add('shake')
+    board1[row].querySelectorAll('.guessBox')[column].addEventListener('animationend', () => {
+      // r emove animation class after vibration
+      board1[row].querySelectorAll('.guessBox')[column].classList.remove('shake')
+    }, { once: true })
+  }
 }
