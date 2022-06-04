@@ -15297,13 +15297,16 @@ const targetWords = [
 let row = 0
 let col = 0
 const board1 = document.querySelectorAll('.game-row')
+const Board = document.querySelector('[data-gameboard-container]')
+const keyboard = document.querySelector('[data-keyboard]')
+
 const WORD_LENGTH = 4
+const FLIP_ANIMATION_DURATION = 500
 const DaysOffset = new Date(2022, 5, 4)
 const msOffset = Date.now() - DaysOffset
 const Actual = msOffset / 3600 / 24000
 const wordOfTheDay = targetWords[Math.floor(Actual)]
 const alertContainer = document.querySelector('[data-alert-container]')
-
 startGame()
 // grab every button and row elements
 // const buttonElement = document.querySelectorAll('button')
@@ -15332,7 +15335,6 @@ function handleMouseClick (clickEvent) {
   if (clickEvent.target.matches('[data-del]')) {
     deleteEvent()
   }
-
 }
 
 function handleKeyPressed (pressedKey) {
@@ -15377,21 +15379,29 @@ function deleteEvent () {
 }
 
 function submitGuess () {
-  let PlayerGuess = ''
+  // convert active tiles into an array
+  const activeTiles = [...getActiveTiles()]
   if (col < 5) {
     Notification('Word Too Short')
-    // VibrateTiles()
+    VibrateTiles()
   } else {
     // Do some operations
-    board1.forEach(element => {
-      PlayerGuess += element.innerText
-    })
-    if (!dictionary.includes(PlayerGuess)) {
-      Notification('Not in word list')
+    const PlayerGuess = activeTiles.reduce((word, tile) => {
+      return word + tile.innerText
+    }, '')
+
+    if (!dictionary.includes(PlayerGuess.toLowerCase())) {
+      Notification('Not in word List')
+      return
     }
+    stopGame()
+    activeTiles.forEach((...tiles) => FlipTiles(...tiles, PlayerGuess))
   }
 }
 
+function getActiveTiles () {
+  return Board.querySelectorAll('[data-state="active"]')
+}
 // alert player if guess is lessr than 5 characters
 function Notification (message, duration = 1000) {
   const alert = document.createElement('div')
@@ -15423,4 +15433,12 @@ function VibrateTiles () {
       board1[row].querySelectorAll('.guessBox')[column].classList.remove('shake')
     }, { once: true })
   }
+}
+
+function FlipTiles (tile, index, array, guess) {
+  const letter = tile.dataset.letter
+  const key = keyboard.querySelector(`[data-key="${letter}"]`)
+  setTimeout(() => {
+    tile.classList.add('flip')
+  }, index * FLIP_ANIMATION_DURATION / 2)
 }
