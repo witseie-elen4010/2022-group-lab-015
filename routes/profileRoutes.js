@@ -1,10 +1,10 @@
 
 'use strict'
-const database = require('../database/TemporaltDatabase')
+const dataBase = require('../database/databaseConfig')
 const databaseOperation = require('../database/databaseOperations')
 const path = require('path')
 const express = require('express')
-// const req = require('express/lib/request')
+const operations = require('../database/databaseOperations')
 const profile = express.Router()
 
 profile.get('/createAccount', function(req, res){
@@ -12,13 +12,19 @@ profile.get('/createAccount', function(req, res){
 } )
 
 profile.get('/ForgotPassword', function (req, res) {
-  res.sendFile(path.join(__dirname, '../views', 'profile', 'ForgotPassword.html'))
+  res.sendFile(path.join(__dirname, '../views', 'profile', 'ResetPassword.html'))
 })
 profile.get('/ResetPassword', function (req, res) {
   res.sendFile(path.join(__dirname, '../views', 'profile', 'ResetPassword.html'))
 })
+<<<<<<< HEAD
 
 
+=======
+profile.get('/DeleteAccount', function (req, res) {
+  res.sendFile(path.join(__dirname, '../views', 'profile', 'DeleteAccount.html'))
+})
+>>>>>>> master
 profile.post('/api/createAccount', function (req, res) {
   let validAccount = false
   const nameval = req.body.name.toLowerCase()
@@ -41,38 +47,52 @@ profile.post('/api/createAccount', function (req, res) {
 })
 
 module.exports = profile
-profile.post('/api/profile', function (req, res) {
-  const currentUsername = req.body.user
-  let index = -1
-  index = database.RegisteredUsers.findIndex(function (element) {
-    return element.username === currentUsername
-  })
-  if (index === -1) {
-    res.redirect('/profile/ForgotPassword')
-  } else {
-    res.redirect('/profile/ResetPassword')
-  }
-})
+
 profile.post('/api/profile/reset', function (req, res) {
+  const currentUsername = req.body.user
   const firstPassword = req.body.password1
   const secondPassword = req.body.password2
-  const currentUsername = req.body.user
-  let index = -1
-  index = database.RegisteredUsers.findIndex(function (element) {
-    return element.username === currentUsername
+
+  dataBase.sql.connect(dataBase.configurations).then(pool =>{
+    console.log('Connected to DB')
+     return pool.request()
+     .input('username',dataBase.sql.NVarChar,currentUsername)
+     .query('SELECT * FROM WordleUsers WHERE Username = @username')
+  }).then(result => {
+    setTimeout(()=>{
+      if( result.recordset[0] == null){
+       res.redirect('/profile/ResetPassword')
+   }else {
+if(firstPassword === secondPassword){
+databaseOperation.UpdatePassword(currentUsername,firstPassword)
+res.redirect('/')
+}else{
+res.redirect('/profile/ResetPassword')
+}}
+    },1000)
+    dataBase.sql.close()
+  }).catch(error => {
+     console.log(error.message)     
+     dataBase.sql.close()
   })
-  console.log(database.RegisteredUsers[index])
-  if (index === -1 || firstPassword !== secondPassword) {
-    res.redirect('/profile/ResetPassword')
-  } else {
-    database.RegisteredUsers[index].password = firstPassword
-    console.log(database.RegisteredUsers[index])
+})
+profile.post('/api/profile/delete', function (req, res) {
+  const Username = req.body.username
+  const Password = req.body.userpassword
+  operations.DeleteUser(Username,Password)
+  setTimeout(()=>{
     res.redirect('/')
-  }
+  },1000)
 })
 profile.post('/api/profile/return', function (req, res) {
   res.redirect('/')
 })
+<<<<<<< HEAD
 
 
+=======
+profile.post('/api/profile/back', function (req, res) {
+  res.redirect('../../../homepage')
+})
+>>>>>>> master
 module.exports = profile

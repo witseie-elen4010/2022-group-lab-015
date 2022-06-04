@@ -1,6 +1,8 @@
 .player1-side-left, .player2-side-right {
     height:50vh;
     width:100%;
+    flex-direction: column;
+    padding: 1em;
 }
 
 .player1-side-left{
@@ -24,18 +26,25 @@
 
 .game-container {
     width: 100%;
-    flex-grow: 1;
+    /*flex-grow: 1;*/
     align-items: center;
 }
 
 .gameBoard-Container {
     width: 100%;
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 1em;
 }
 
 .game-row {
+    display: flex;
+    flex-direction: row;
+    }
+
+.game-rowP2 {
     display: flex;
     flex-direction: row;
     }
@@ -50,7 +59,39 @@
     color: #fff;
     display: flex;
     justify-content: center;
+    font-weight: bold;
     align-items: center;
+    user-select: none;
+    transition: transform 250ms linear;
+}
+
+/*Handle game board states*/
+/*Active box (Has letter but not submitted)*/
+.guessBox[data-state ="active"] {
+border-color: hsl(200, 1%, 34%);
+}
+
+.guessBox[data-state ="wrong"] {
+    border:none;
+    background-color: hsl(240, 2%, 23%);
+    }
+
+.guessBox[data-state ="wrong-location"] {
+        border:none;
+        background-color: hsl(49, 51%, 47%);
+        }
+
+.guessBox[data-state ="correct-location"] {
+    border:none;
+    background-color: green;
+    }
+
+.guessBox.shake {
+    animation: shake 250ms ease-in-out;
+    }
+
+.guessBox.flip {
+    transform: rotateX(90deg);
 }
 
 .keyboard {
@@ -60,17 +101,69 @@
 
 .keyboard-container {
     width: 100%;
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .keyboard button {
-    background-color: #000;
-    color: #fff;
+    background-color: hsl(
+       var(--hue, 200),
+       var(--saturation, 1%), 
+       var(--lightness,51%));
+    border: 1px;
+    color: white;
     outline: none;
-    border: 1px solid #353535;
+    border-radius: 0.25;
     padding: 1em;
+    align-items: center;
     cursor: pointer;
     margin-bottom: 0.4em;
     border-radius: 4px;
+}
+
+/*Reflections on keyboard according to placements*/
+.keyboard button.wrong {
+    --lightness: 23%;
+}
+
+.keyboard button.wrong-location {
+--hue: 49;
+--saturation: 51%;
+--lightness:47%;
+}
+
+.keyboard button.correct {
+    --hue: 115;
+    --saturation: 29%;
+    --lightness:43%;
+}
+
+.alert-container {
+ position: fixed;
+ top: 2.5vh;
+ left:24.45vw;
+ transform: translateX(-50%);
+ z-index: 1;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+}
+
+.alert {
+ pointer-events: none;
+ background-color: hsl(204, 7%, 85%);
+ padding: 0.75em;
+ border-radius: 0.25em;
+ opacity: 1;
+ transition: opacity 500ms ease-in-out;
+ margin-bottom: 0.5em
+}
+
+.alert:last-child {
+    margin-bottom: 0;
+}
+
+.alert.hide {
+    opacity: 0;
 }
