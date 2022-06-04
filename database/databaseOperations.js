@@ -76,4 +76,16 @@ operations.DoesUserExist = async (username) =>{
   }
 }
 
+operations.GetUserPassword = async (username) => {
+  try {
+    let instance = await dataBase.pools
+    let response = await instance.request()
+    .input('user', dataBase.sql.NVarChar, username)
+    .query('SELECT Password FROM WordleUsers WHERE Username = @user')
+    return response.recordset[0].Password
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
 module.exports = operations
