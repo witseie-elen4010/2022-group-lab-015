@@ -17,9 +17,14 @@ profile.get('/ForgotPassword', function (req, res) {
 profile.get('/ResetPassword', function (req, res) {
   res.sendFile(path.join(__dirname, '../views', 'profile', 'ResetPassword.html'))
 })
+<<<<<<< HEAD
+
+
+=======
 profile.get('/DeleteAccount', function (req, res) {
   res.sendFile(path.join(__dirname, '../views', 'profile', 'DeleteAccount.html'))
 })
+>>>>>>> master
 profile.post('/api/createAccount', function (req, res) {
   let validAccount = false
   const nameval = req.body.name.toLowerCase()
@@ -82,7 +87,12 @@ profile.post('/api/profile/delete', function (req, res) {
 profile.post('/api/profile/return', function (req, res) {
   res.redirect('/')
 })
+<<<<<<< HEAD
+
+
+=======
 profile.post('/api/profile/back', function (req, res) {
   res.redirect('../../../homepage')
 })
+>>>>>>> master
 module.exports = profile

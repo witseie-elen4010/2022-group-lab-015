@@ -14,3 +14,20 @@ form.addEventListener('input', () => {
         formBtn.setAttribute('disabled', 'disabled')
     }
 })
+
+const modal = document.getElementById('createAccount')
+const modalbtn = document.getElementById('modalbtn')
+modal.addEventListener('click', () => {
+    setTimeout (function () {
+        modal.style.display = 'block'
+        let msg = document.createElement('h2')
+        msg.innerHTML = `New account created. <br>You will be redirected
+        to the login page soon.`
+        modal.appendChild(msg)
+    })
+})
+
+// modalbtn.addEventListener('click', () => {
+//     window.Location.assign('/')
+//     modal.style.display ='none'
+// })
