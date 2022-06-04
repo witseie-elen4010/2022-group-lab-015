@@ -15358,7 +15358,17 @@ function pressKey (Pressedkey) {
 }
 
 function deleteEvent () {
+  if ((col - 1) < -1) return
+  if (col === 0) {
+    board1[row].querySelectorAll('.guessBox')[col].innerText = ''
+    delete board1[row].querySelectorAll('.guessBox')[col].dataset.state
+  }
 
+  if (col > 0) {
+    --col
+    board1[row].querySelectorAll('.guessBox')[col].innerText = ''
+    delete board1[row].querySelectorAll('.guessBox')[col].dataset.state
+  }
 }
 
 function submitGuess () {
