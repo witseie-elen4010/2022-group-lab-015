@@ -15300,7 +15300,6 @@ const board1 = document.querySelectorAll('.game-row')
 const Board = document.querySelector('[data-gameboard-container]')
 const keyboard = document.querySelector('[data-keyboard]')
 
-
 const WORD_LENGTH = 4
 const FLIP_ANIMATION_DURATION = 500
 const DaysOffset = new Date(2022, 5, 4)
@@ -15438,8 +15437,8 @@ function VibrateTiles () {
 
 function FlipTiles (tile, index, array, guess) {
   const letter = (tile.innerText).toLowerCase()
-  console.log(letter)
-  const key = keyboard.querySelector(`[data-key="${letter}"]`)
+  const letter2 = letter.toUpperCase()
+  const key = keyboard.querySelector(`[data-key="${letter2}"]`)
   setTimeout(() => {
     tile.classList.add('flip')
   }, index * FLIP_ANIMATION_DURATION / 2)
@@ -15448,10 +15447,9 @@ function FlipTiles (tile, index, array, guess) {
   tile.addEventListener('transitionend', () => {
     // Remove the animation
     tile.classList.remove('flip')
-    console.log(key)
     if (wordOfTheDay[index] === letter) {
       tile.dataset.state = 'correct-location'
-      key.classList.add('correct-location')
+      key.classList.add('correct')
     } else if (wordOfTheDay.includes(letter)) {
       tile.dataset.state = 'wrong-location'
       key.classList.add('wrong-location')
@@ -15459,5 +15457,30 @@ function FlipTiles (tile, index, array, guess) {
       tile.dataset.state = 'wrong'
       key.classList.add('wrong')
     }
-  })
+    // Restart game after we reached end of checks
+    if (index === array.length - 1) {
+      tile.addEventListener('transitionend', () => {
+        if (row < 6) {
+          ++row
+          col = 0
+          startGame()
+        }
+        checkWinOrLose(guess, array)
+      }, { once: true })
+    }
+  }, { once: true })
+}
+
+function checkWinOrLose (PlayerGuess, Tilearray) {
+  if (PlayerGuess === wordOfTheDay.toLocaleUpperCase()) {
+    Notification('You won', 5000)
+    stopGame()
+    return
+  }
+  // const FreePieces = Board.querySelectorAll(':not([data-letter])')
+
+  if (row > 5) {
+    Notification('word was ' + wordOfTheDay.toUpperCase(), null)
+    stopGame()
+  }
 }
