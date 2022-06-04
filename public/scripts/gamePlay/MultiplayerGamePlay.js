@@ -15294,12 +15294,15 @@ const targetWords = [
   'shave'
 ]
 
-// let row = 0;
-// let col = 0;
+let row = 0
+let col = 0
 const board1 = document.querySelectorAll('.game-row')
+const WORD_LENGTH = 4
+const DaysOffset = new Date(2022, 5, 4)
+const msOffset = Date.now() - DaysOffset
+const Actual = msOffset / 3600 / 24000
+const wordOfTheDay = targetWords[Math.floor(Actual)]
 
-// console.log(board1[1].querySelectorAll('.guessBox')[1].attributes['data-key'].value)
-const guessBoard = document.querySelector('[data-board-guess]')
 startGame()
 // grab every button and row elements
 // const buttonElement = document.querySelectorAll('button')
@@ -15316,7 +15319,7 @@ function stopGame () {
 
 function handleMouseClick (clickEvent) {
   if (clickEvent.target.matches('[data-key]')) {
-    pressKey(clickEvent.target.key)
+    pressKey(clickEvent.target.dataset.key)
     return
   }
 
@@ -15349,18 +15352,33 @@ function handleKeyPressed (pressedKey) {
 }
 
 function pressKey (Pressedkey) {
-// grab the 1st letter that does not have a letter defined in it
-  /* const nextTile = guessBoard.querySelector(':not([data-key])')
-  nextTile.dataset.lettr = Pressedkey.toUpperCase()
-  nextTile.textContent = Pressedkey
-  nextTile.dataset.state = 'active' */
-  board1[1].querySelectorAll('.guessBox')[1].innerText = Pressedkey.toUpperCase()
+// restrict guess to a five letter word
+  if (col > WORD_LENGTH) return
+  board1[row].querySelectorAll('.guessBox')[col].innerText = Pressedkey.toUpperCase()
+  board1[row].querySelectorAll('.guessBox')[col].dataset.state = 'active'
+  ++col
 }
 
 function deleteEvent () {
+  if ((col - 1) < -1) return
+  if (col === 0) {
+    board1[row].querySelectorAll('.guessBox')[col].innerText = ''
+    delete board1[row].querySelectorAll('.guessBox')[col].dataset.state
+  }
 
+  if (col > 0) {
+    --col
+    board1[row].querySelectorAll('.guessBox')[col].innerText = ''
+    delete board1[row].querySelectorAll('.guessBox')[col].dataset.state
+  }
 }
 
 function submitGuess () {
-
+  if (col === WORD_LENGTH) {
+    // Do some further checks
+  } else {
+    // Notification('Word Too Short')
+    // Some anime
+  }
+  console.log('should submit')
 }
