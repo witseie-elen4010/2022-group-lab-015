@@ -26,23 +26,21 @@ operations.UpdatePassword = async (username, password) => {
   }
 }
 
-operations.CreateUser = (name, surname, email, username, password) => {
-  dataBase.sql.connect(dataBase.configurations).then(pool => {
-    console.log('Connected to DB')
-    return pool.request()
-      .input('name', dataBase.sql.NVarChar, name)
-      .input('surname', dataBase.sql.NVarChar, surname)
-      .input('email', dataBase.sql.NVarChar, email)
-      .input('username', dataBase.sql.NVarChar, username)
-      .input('password', dataBase.sql.NVarChar, password)
-      .query('INSERT INTO WordleUsers VALUES(@name,@surname,@email,@username,@password)')
-  }).then(result => {
-    console.log(result)
-    dataBase.sql.close()
-  }).catch(error => {
+operations.CreateUser = async (name, surname, email, username, password) => {
+  try {
+    let instance = await dataBase.pools
+    await instance.request()
+    .input('name', dataBase.sql.NVarChar, name)
+    .input('surname', dataBase.sql.NVarChar, surname)
+    .input('email', dataBase.sql.NVarChar, email)
+    .input('username', dataBase.sql.NVarChar, username)
+    .input('password', dataBase.sql.NVarChar, password)
+    .query('INSERT INTO WordleUsers VALUES(@name,@surname,@email,@username,@password)')
+    return true
+  } catch (error) {
     console.log(error.message)
-    dataBase.sql.close()
-  })
+    return false
+  }
 }
 
 operations.DeleteUser = (username, password) => {
