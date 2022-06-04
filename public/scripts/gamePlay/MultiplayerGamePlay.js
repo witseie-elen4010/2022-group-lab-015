@@ -15300,7 +15300,6 @@ const board1 = document.querySelectorAll('.game-row')
 const Board = document.querySelector('[data-gameboard-container]')
 const keyboard = document.querySelector('[data-keyboard]')
 
-
 const WORD_LENGTH = 4
 const FLIP_ANIMATION_DURATION = 500
 const DaysOffset = new Date(2022, 5, 4)
@@ -15313,6 +15312,8 @@ startGame()
 // const buttonElement = document.querySelectorAll('button')
 
 function startGame () {
+  console.log('successfully started!')
+  console.log(row)
   document.addEventListener('click', handleMouseClick)
   // document.addEventListener('keydown', handleKeyPressed)
 }
@@ -15458,6 +15459,16 @@ function FlipTiles (tile, index, array, guess) {
     } else {
       tile.dataset.state = 'wrong'
       key.classList.add('wrong')
+    }
+    // Restart game after we reached end of checks
+    if (index === array.length - 1) {
+      tile.addEventListener('transitionend', () => {
+        if (row < 5) {
+          ++row
+          col = 0
+          startGame()
+        }
+      })
     }
   })
 }
