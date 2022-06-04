@@ -18,6 +18,7 @@ profile.get('/ResetPassword', function (req, res) {
   res.sendFile(path.join(__dirname, '../views', 'profile', 'ResetPassword.html'))
 })
 
+
 profile.post('/api/createAccount', function (req, res) {
   let validAccount = false
   const nameval = req.body.name.toLowerCase()
@@ -72,4 +73,6 @@ profile.post('/api/profile/reset', function (req, res) {
 profile.post('/api/profile/return', function (req, res) {
   res.redirect('/')
 })
+
+
 module.exports = profile
