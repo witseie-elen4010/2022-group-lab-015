@@ -15300,6 +15300,7 @@ const board1 = document.querySelectorAll('.game-row')
 const Board = document.querySelector('[data-gameboard-container]')
 const keyboard = document.querySelector('[data-keyboard]')
 
+
 const WORD_LENGTH = 4
 const FLIP_ANIMATION_DURATION = 500
 const DaysOffset = new Date(2022, 5, 4)
@@ -15436,9 +15437,27 @@ function VibrateTiles () {
 }
 
 function FlipTiles (tile, index, array, guess) {
-  const letter = tile.dataset.letter
+  const letter = (tile.innerText).toLowerCase()
+  console.log(letter)
   const key = keyboard.querySelector(`[data-key="${letter}"]`)
   setTimeout(() => {
     tile.classList.add('flip')
   }, index * FLIP_ANIMATION_DURATION / 2)
+
+  // By the end of the flip
+  tile.addEventListener('transitionend', () => {
+    // Remove the animation
+    tile.classList.remove('flip')
+    console.log(key)
+    if (wordOfTheDay[index] === letter) {
+      tile.dataset.state = 'correct-location'
+      key.classList.add('correct-location')
+    } else if (wordOfTheDay.includes(letter)) {
+      tile.dataset.state = 'wrong-location'
+      key.classList.add('wrong-location')
+    } else {
+      tile.dataset.state = 'wrong'
+      key.classList.add('wrong')
+    }
+  })
 }
