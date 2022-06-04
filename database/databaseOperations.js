@@ -56,4 +56,24 @@ operations.DeleteUser = async (username, password) => {
     return false
   }
 }
+
+operations.DoesUserExist = async (username) =>{
+  try {
+    let instance = await dataBase.pools
+    let response = await instance.request()
+    .input('user', dataBase.sql.NVarChar, username)
+    .query('SELECT COUNT(1) FROM WordleUsers WHERE Username = @user')
+    const count = response.recordset[0]['']
+    if(count === 1) {
+      return true
+    }
+    else{
+      return false 
+    } 
+  } catch (error) {
+    console.log(error.message)
+    return false
+  }
+}
+
 module.exports = operations
