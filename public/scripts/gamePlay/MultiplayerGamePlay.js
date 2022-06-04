@@ -15438,8 +15438,9 @@ function VibrateTiles () {
 
 function FlipTiles (tile, index, array, guess) {
   const letter = (tile.innerText).toLowerCase()
+  const letter2 = letter.toUpperCase()
   console.log(letter)
-  const key = keyboard.querySelector(`[data-key="${letter}"]`)
+  const key = keyboard.querySelector(`[data-key="${letter2}"]`)
   setTimeout(() => {
     tile.classList.add('flip')
   }, index * FLIP_ANIMATION_DURATION / 2)
@@ -15448,10 +15449,9 @@ function FlipTiles (tile, index, array, guess) {
   tile.addEventListener('transitionend', () => {
     // Remove the animation
     tile.classList.remove('flip')
-    console.log(key)
     if (wordOfTheDay[index] === letter) {
       tile.dataset.state = 'correct-location'
-      key.classList.add('correct-location')
+      key.classList.add('correct')
     } else if (wordOfTheDay.includes(letter)) {
       tile.dataset.state = 'wrong-location'
       key.classList.add('wrong-location')
