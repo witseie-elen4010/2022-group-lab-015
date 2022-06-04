@@ -15294,9 +15294,10 @@ const targetWords = [
   'shave'
 ]
 
- let row = 0;
- let col = 0;
+let row = 0
+let col = 0
 const board1 = document.querySelectorAll('.game-row')
+const WORD_LENGTH = 5
 
 // console.log(board1[1].querySelectorAll('.guessBox')[1].attributes['data-key'].value)
 const guessBoard = document.querySelector('[data-board-guess]')
@@ -15320,12 +15321,12 @@ function handleMouseClick (clickEvent) {
     return
   }
 
-  if (clickEvent.target.match('[data-entr]')) {
+  if (clickEvent.target.matches('[data-entr]')) {
     submitGuess()
     return
   }
 
-  if (clickEvent.target.match('[data-del]')) {
+  if (clickEvent.target.matches('[data-del]')) {
     deleteEvent()
   }
 }
@@ -15349,11 +15350,8 @@ function handleKeyPressed (pressedKey) {
 }
 
 function pressKey (Pressedkey) {
-// grab the 1st letter that does not have a letter defined in it
-  /* const nextTile = guessBoard.querySelector(':not([data-letter ])')
-  nextTile.dataset.letter = Pressedkey.toUpperCase()
-  nextTile.textContent = Pressedkey
-  nextTile.dataset.state = 'active' */
+// restrict guess to a five letter word
+  if (col > 4) return
   board1[row].querySelectorAll('.guessBox')[col].innerText = Pressedkey.toUpperCase()
   board1[row].querySelectorAll('.guessBox')[col].dataset.state = 'active'
   ++col
