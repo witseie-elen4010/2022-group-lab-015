@@ -15312,8 +15312,6 @@ startGame()
 // const buttonElement = document.querySelectorAll('button')
 
 function startGame () {
-  console.log('successfully started!')
-  console.log(row)
   document.addEventListener('click', handleMouseClick)
   // document.addEventListener('keydown', handleKeyPressed)
 }
@@ -15462,7 +15460,7 @@ function FlipTiles (tile, index, array, guess) {
     // Restart game after we reached end of checks
     if (index === array.length - 1) {
       tile.addEventListener('transitionend', () => {
-        if (row < 5) {
+        if (row < 6) {
           ++row
           col = 0
           startGame()
@@ -15479,8 +15477,10 @@ function checkWinOrLose (PlayerGuess, Tilearray) {
     stopGame()
     return
   }
-  if (row >= 6) {
-    Notification(wordOfTheDay.toUpperCase(), null)
+  // const FreePieces = Board.querySelectorAll(':not([data-letter])')
+
+  if (row > 5) {
+    Notification('word was ' + wordOfTheDay.toUpperCase(), null)
     stopGame()
   }
 }
