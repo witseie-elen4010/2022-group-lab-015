@@ -15440,7 +15440,6 @@ function VibrateTiles () {
 function FlipTiles (tile, index, array, guess) {
   const letter = (tile.innerText).toLowerCase()
   const letter2 = letter.toUpperCase()
-  console.log(letter)
   const key = keyboard.querySelector(`[data-key="${letter2}"]`)
   setTimeout(() => {
     tile.classList.add('flip')
@@ -15468,7 +15467,20 @@ function FlipTiles (tile, index, array, guess) {
           col = 0
           startGame()
         }
-      })
+        checkWinOrLose(guess, array)
+      }, { once: true })
     }
-  })
+  }, { once: true })
+}
+
+function checkWinOrLose (PlayerGuess, Tilearray) {
+  if (PlayerGuess === wordOfTheDay.toLocaleUpperCase()) {
+    Notification('You won', 5000)
+    stopGame()
+    return
+  }
+  if (row >= 6) {
+    Notification(wordOfTheDay.toUpperCase(), null)
+    stopGame()
+  }
 }
