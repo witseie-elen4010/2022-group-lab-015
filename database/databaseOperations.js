@@ -2,17 +2,14 @@
 const dataBase = require('../database/databaseConfig')
 const operations = {}
 
-operations.ViewUsers = () => {
-  dataBase.sql.connect(dataBase.configurations).then(pool => {
-    console.log('Connected to DB')
-    return pool.request().query('SELECT * FROM WordleUsers')
-  }).then(result => {
-    console.log(result)
-    dataBase.sql.close()
-  }).catch(error => {
+operations.ViewUser =  async () => {
+  try {
+    let instance = await dataBase.pools
+    let response = await instance.request().query('SELECT * FROM WordleUsers')
+    console.log(response.recordset)
+  } catch (error) {
     console.log(error.message)
-    dataBase.sql.close()
-  })
+  }
 }
 
 operations.UpdatePassword = (username, password) => {
