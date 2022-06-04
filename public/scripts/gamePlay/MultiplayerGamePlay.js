@@ -15302,6 +15302,7 @@ const DaysOffset = new Date(2022, 5, 4)
 const msOffset = Date.now() - DaysOffset
 const Actual = msOffset / 3600 / 24000
 const wordOfTheDay = targetWords[Math.floor(Actual)]
+const alertContainer = document.querySelector('[data-alert-container]')
 
 startGame()
 // grab every button and row elements
@@ -15377,8 +15378,28 @@ function submitGuess () {
   if (col === WORD_LENGTH) {
     // Do some further checks
   } else {
-    // Notification('Word Too Short')
+    Notification('Word Too Short')
     // Some anime
   }
   console.log('should submit')
+}
+
+function Notification (message, duration = 1000) {
+  const alert = document.createElement('div')
+  alert.textContent = message
+  // add in the created alert class
+  alert.classList.add('alert')
+
+  // add ne alrt to the top end of the list
+  alertContainer.prepend(alert)
+  if (duration == null) {
+    return
+  }
+
+  setTimeout(() => {
+    alert.classList.add('hide')
+    alert.addEventListener('transitionend', () => {
+        alert.remove()
+    })
+  }, duration)
 }
