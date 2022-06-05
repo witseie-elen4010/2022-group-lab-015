@@ -13,10 +13,10 @@ wsServer.on('connection', socket => {
 //accepting a new client
 wsServer.on("request", request => {
     const connection = request.accept(null, request.origin)
-    connection.on("open", () => console.log("open"))
-    connection.on("close", () => console.log("close"))
+    connection.on("open", () => console.log("open")) //opening the connection
+    connection.on("close", () => console.log("close")) //closing the connect
     connection.on("message", message => {
-
+        //set the logic for getting a message from the client
     })
 })
 
