@@ -8,7 +8,7 @@ test('Greet: hello', () => {
   expect(greet).toEqual(output)
 })
 
-//server dummy test using a temp client! review this test
+/* //server dummy test using a temp client! review this test
 //before submitting it
 test('', () => {
   const ws = require('ws')
@@ -16,4 +16,4 @@ test('', () => {
   client.on('open', () => {
     client.send('Hello')
   })
-})
+}) */
