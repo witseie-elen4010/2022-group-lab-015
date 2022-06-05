@@ -18,7 +18,15 @@ const config = {
   }
 }
 
+const pools = new mssql.ConnectionPool(config)
+.connect().then(pool => {
+console.log('Connected to DB')
+return pool
+}).catch(err => {
+console.log(err)
+})
+
 module.exports = {
   sql: mssql,
-  configurations: config
+  pools: pools,
 }

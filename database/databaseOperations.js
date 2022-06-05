@@ -2,67 +2,110 @@
 const dataBase = require('../database/databaseConfig')
 const operations = {}
 
-operations.ViewUsers = () => {
-  dataBase.sql.connect(dataBase.configurations).then(pool => {
-    console.log('Connected to DB')
-    return pool.request().query('SELECT * FROM WordleUsers')
-  }).then(result => {
-    console.log(result)
-    dataBase.sql.close()
-  }).catch(error => {
+operations.ViewUser =  async () => {
+  try {
+    let instance = await dataBase.pools
+    let response = await instance.request().query('SELECT * FROM WordleUsers')
+    console.log(response.recordset)
+  } catch (error) {
     console.log(error.message)
-    dataBase.sql.close()
-  })
+  }
 }
 
-operations.UpdatePassword = (username, password) => {
-  dataBase.sql.connect(dataBase.configurations).then(pool => {
-    console.log('Connected to DB')
-    return pool.request()
-      .input('user', dataBase.sql.NVarChar, username)
-      .input('password', dataBase.sql.NVarChar, password)
-      .query('UPDATE WordleUsers SET Password =@password WHERE Username =@user')
-  }).then(result => {
-    console.log(result)
-    dataBase.sql.close()
-  }).catch(error => {
+operations.UpdatePassword = async (username, password) => {
+  try {
+    let instance = await dataBase.pools
+    await instance.request()
+    .input('user', dataBase.sql.NVarChar, username)
+    .input('password', dataBase.sql.NVarChar, password)
+    .query('UPDATE WordleUsers SET Password =@password WHERE Username =@user')
+    return true
+  } catch (error) {
     console.log(error.message)
-    dataBase.sql.close()
-  })
+    return false
+  }
 }
 
-operations.CreateUser = (name, surname, email, username, password) => {
-  dataBase.sql.connect(dataBase.configurations).then(pool => {
-    console.log('Connected to DB')
-    return pool.request()
-      .input('name', dataBase.sql.NVarChar, name)
-      .input('surname', dataBase.sql.NVarChar, surname)
-      .input('email', dataBase.sql.NVarChar, email)
-      .input('username', dataBase.sql.NVarChar, username)
-      .input('password', dataBase.sql.NVarChar, password)
-      .query('INSERT INTO WordleUsers VALUES(@name,@surname,@email,@username,@password)')
-  }).then(result => {
-    console.log(result)
-    dataBase.sql.close()
-  }).catch(error => {
+operations.CreateUser = async (name, surname, email, username, password) => {
+  try {
+    let instance = await dataBase.pools
+    await instance.request()
+    .input('name', dataBase.sql.NVarChar, name)
+    .input('surname', dataBase.sql.NVarChar, surname)
+    .input('email', dataBase.sql.NVarChar, email)
+    .input('username', dataBase.sql.NVarChar, username)
+    .input('password', dataBase.sql.NVarChar, password)
+    .query('INSERT INTO WordleUsers VALUES(@name,@surname,@email,@username,@password)')
+    return true
+  } catch (error) {
     console.log(error.message)
-    dataBase.sql.close()
-  })
+    return false
+  }
 }
 
-operations.DeleteUser = (username, password) => {
-  dataBase.sql.connect(dataBase.configurations).then(pool => {
-    console.log('Connected to DB')
-    return pool.request()
-      .input('user', dataBase.sql.NVarChar, username)
-      .input('password', dataBase.sql.NVarChar, password)
-      .query('DELETE FROM WordleUsers WHERE Username = @user AND Password =@password')
-  }).then(result => {
-    console.log(result)
-    dataBase.sql.close()
-  }).catch(error => {
+operations.DeleteUser = async (username, password) => {
+  try {
+    let instance = await dataBase.pools
+    await instance.request()
+    .input('user', dataBase.sql.NVarChar, username)
+    .input('password', dataBase.sql.NVarChar, password)
+    .query('DELETE FROM WordleUsers WHERE Username = @user AND Password =@password')
+    return true
+  } catch (error) {
     console.log(error.message)
-    dataBase.sql.close()
-  })
+    return false
+  }
 }
+
+operations.DoesUserExistByUsername = async (username) =>{
+  try {
+    let instance = await dataBase.pools
+    let response = await instance.request()
+    .input('user', dataBase.sql.NVarChar, username)
+    .query('SELECT COUNT(1) FROM WordleUsers WHERE Username = @user')
+    const count = response.recordset[0]['']
+    if(count === 1) {
+      return true
+    }
+    else{
+      return false 
+    } 
+  } catch (error) {
+    console.log(error.message)
+    return false
+  }
+}
+
+operations.Aunthentication = async (username,password) =>{
+  try {
+    let instance = await dataBase.pools
+    let response = await instance.request()
+    .input('user', dataBase.sql.NVarChar, username)
+    .input('password', dataBase.sql.NVarChar, password)
+    .query('SELECT COUNT(1) FROM WordleUsers WHERE Username = @user AND Password = @password')
+    const count = response.recordset[0]['']
+    if(count === 1) {
+      return true
+    }
+    else{
+      return false 
+    } 
+  } catch (error) {
+    console.log(error.message)
+    return false
+  }
+}
+
+operations.GetUserPassword = async (username) => {
+  try {
+    let instance = await dataBase.pools
+    let response = await instance.request()
+    .input('user', dataBase.sql.NVarChar, username)
+    .query('SELECT Password FROM WordleUsers WHERE Username = @user')
+    return response.recordset[0].Password
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
 module.exports = operations
