@@ -2,10 +2,21 @@
 const dataBase = require('../database/databaseConfig')
 const operations = {}
 
-operations.ViewUser =  async (tableName) => {
+operations.ViewTables =  async (tableName) => {
   try {
     let instance = await dataBase.pools
     let response = await instance.request().query('SELECT * FROM ' + tableName)
+    console.log(response.recordset)
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+operations.playerLog =  async (userName) => {
+  try {
+    let instance = await dataBase.pools
+    let response = await instance.request()
+    .input('user', dataBase.sql.NVarChar, userName)
+    .query('SELECT * FROM logsInformation WHERE Username = @user')
     console.log(response.recordset)
   } catch (error) {
     console.log(error.message)
