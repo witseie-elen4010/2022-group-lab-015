@@ -43,6 +43,23 @@ operations.CreateUser = async (name, surname, email, username, password) => {
   }
 }
 
+operations.UserLogs = async (userName, guess, date , time) => {
+  try {
+    let instance = await dataBase.pools
+    await instance.request()
+    .input('userName', dataBase.sql.NVarChar, userName)
+    .input('guess', dataBase.sql.NVarChar, guess)
+    .input('date', dataBase.sql.NVarChar, date)
+    .input('time', dataBase.sql.NVarChar, time)
+    .query('INSERT INTO logsInformation VALUES(@userName,@guess,@date,@time)')
+    return true
+  } catch (error) {
+    console.log(error.message)
+    return false
+  }
+}
+
+
 operations.DeleteUser = async (username, password) => {
   try {
     let instance = await dataBase.pools
