@@ -1,14 +1,25 @@
 'use strict'
-const express = require('express')
-const fs = require('fs')
-const app = express()
 const http = require('http')
-const cors = require('cors')
+const WebsocketServer = require('websocket').server
+const httpServer = http.createServer()
 
 const PORT = process.env.PORT || 8080
-app.use(cors())
+httpServer.listen(PORT, console.log('Listening on port: ', PORT))
 
-const server = app.listen(PORT, () => {
+const wsServer = new WebsocketServer({
+  httpServer: httpServer
+})
+
+wsServer.on('request', request => {
+  //  Accept any kind of request
+  // Client trying to connect
+  const connection = request.accept(null, request.origin)
+  connection.on('open', () => console.log('opened'))
+  // Listen to events that happen in that connection
+})
+// app.use(cors())
+
+/* const server = app.listen(PORT, () => {
   console.log('Server is up')
 })
 
@@ -16,4 +27,4 @@ const io = require('socket.io')(server, {
   cors: {
     origin: 'https://g15competitivewordle.azurewebsites.net/'
   }
-})
+}) */
