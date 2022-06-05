@@ -15465,6 +15465,8 @@ function FlipTiles (tile, index, array, guess) {
           col = 0
           startGame()
         }
+        console.log('Array: ', array[1].dataset.state)
+        console.log('row number: ', row)
         checkWinOrLose(guess, array)
       }, { once: true })
     }
