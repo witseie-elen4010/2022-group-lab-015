@@ -2,10 +2,10 @@
 const dataBase = require('../database/databaseConfig')
 const operations = {}
 
-operations.ViewUser =  async () => {
+operations.ViewUser =  async (tableName) => {
   try {
     let instance = await dataBase.pools
-    let response = await instance.request().query('SELECT * FROM WordleUsers')
+    let response = await instance.request().query('SELECT * FROM ' + tableName)
     console.log(response.recordset)
   } catch (error) {
     console.log(error.message)
