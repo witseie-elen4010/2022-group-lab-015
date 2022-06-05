@@ -2,10 +2,21 @@
 const dataBase = require('../database/databaseConfig')
 const operations = {}
 
-operations.ViewUser =  async () => {
+operations.ViewTables =  async (tableName) => {
   try {
     let instance = await dataBase.pools
-    let response = await instance.request().query('SELECT * FROM WordleUsers')
+    let response = await instance.request().query('SELECT * FROM ' + tableName)
+    console.log(response.recordset)
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+operations.playerLog =  async (userName) => {
+  try {
+    let instance = await dataBase.pools
+    let response = await instance.request()
+    .input('user', dataBase.sql.NVarChar, userName)
+    .query('SELECT * FROM logsInformation WHERE Username = @user')
     console.log(response.recordset)
   } catch (error) {
     console.log(error.message)
@@ -42,6 +53,23 @@ operations.CreateUser = async (name, surname, email, username, password) => {
     return false
   }
 }
+
+operations.UserLogs = async (userName, guess, date , time) => {
+  try {
+    let instance = await dataBase.pools
+    await instance.request()
+    .input('userName', dataBase.sql.NVarChar, userName)
+    .input('guess', dataBase.sql.NVarChar, guess)
+    .input('date', dataBase.sql.NVarChar, date)
+    .input('time', dataBase.sql.NVarChar, time)
+    .query('INSERT INTO logsInformation VALUES(@userName,@guess,@date,@time)')
+    return true
+  } catch (error) {
+    console.log(error.message)
+    return false
+  }
+}
+
 
 operations.DeleteUser = async (username, password) => {
   try {
