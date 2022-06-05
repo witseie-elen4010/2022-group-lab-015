@@ -57,12 +57,32 @@ operations.DeleteUser = async (username, password) => {
   }
 }
 
-operations.DoesUserExist = async (username) =>{
+operations.DoesUserExistByUsername = async (username) =>{
   try {
     let instance = await dataBase.pools
     let response = await instance.request()
     .input('user', dataBase.sql.NVarChar, username)
     .query('SELECT COUNT(1) FROM WordleUsers WHERE Username = @user')
+    const count = response.recordset[0]['']
+    if(count === 1) {
+      return true
+    }
+    else{
+      return false 
+    } 
+  } catch (error) {
+    console.log(error.message)
+    return false
+  }
+}
+
+operations.Aunthentication = async (username,password) =>{
+  try {
+    let instance = await dataBase.pools
+    let response = await instance.request()
+    .input('user', dataBase.sql.NVarChar, username)
+    .input('password', dataBase.sql.NVarChar, password)
+    .query('SELECT COUNT(1) FROM WordleUsers WHERE Username = @user AND Password = @password')
     const count = response.recordset[0]['']
     if(count === 1) {
       return true
