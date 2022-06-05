@@ -8,8 +8,9 @@ test('Greet: hello', () => {
   expect(greet).toEqual(output)
 })
 
-//server dummy test using a temp client! review this test
+/* //server dummy test using a temp client! review this test
 //before submitting it
+<<<<<<< HEAD
 // test('', () => { //pu name of test in brackets
 //   const ws = require('ws')
 //   const client = new ws('ws://localhost:3000')
@@ -17,3 +18,12 @@ test('Greet: hello', () => {
 //     client.send('Hello')
 //   })
 // })
+=======
+test('', () => {
+  const ws = require('ws')
+  const client = new ws('ws://localhost:3000')
+  client.on('open', () => {
+    client.send('Hello')
+  })
+}) */
+>>>>>>> master
