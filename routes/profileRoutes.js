@@ -1,10 +1,13 @@
 'use strict'
+
 const dataBase = require('../database/databaseConfig')
 const databaseOperation = require('../database/databaseOperations')
 const path = require('path')
 const express = require('express')
 const operations = require('../database/databaseOperations')
+const bcrypt = require('bcrypt')
 const profile = express.Router()
+const salt = 10
 
 profile.get('/createAccount', function(req, res){
   res.sendFile(path.join(__dirname, '../views', 'profile', 'createAccount.html'))
@@ -32,7 +35,8 @@ profile.post('/api/createAccount', async function (req, res) {
   if (usernameval !== '' && emailval !== '' && passwordval !== '' && nameval !== '' && surnameval !== ''){
     validAccount = true
     if (validAccount) {
-      await databaseOperation.CreateUser(nameval,surnameval,emailval,usernameval,passwordval)
+      const hashedPassword = await bcrypt.hash(passwordval,salt)
+      await databaseOperation.CreateUser(nameval,surnameval,emailval,usernameval,hashedPassword)
       res.redirect('/')
     }
   } else {
