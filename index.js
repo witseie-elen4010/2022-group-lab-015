@@ -5,7 +5,7 @@ const app = express()
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const result = require('express-validator')
-
+const app2 = express()
 // load body-parser
 const bodyParser = require('body-parser')
 
@@ -35,8 +35,8 @@ const PORT = process.env.PORT || 8080
 app.listen(port)
 console.log('Express server running on port: ', port)
 
-app.use(cors)
-const server = app.listen(PORT, () => {
+app2.use(cors)
+const server = app2.listen(PORT, () => {
   console.log('server running on port: ', PORT)
 })
 
