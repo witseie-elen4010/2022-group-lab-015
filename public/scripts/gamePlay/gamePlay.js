@@ -8,8 +8,6 @@ const WordOfTheDay = 'ShOuT'
 let NumberofCorrectAlphabets = 0
 let enteredWord = ''
 let boardState = []
-let counter = 0
-let wordtemp = []
 
 buttonElement.forEach((element) => {
   element.addEventListener('click', function () {
@@ -35,7 +33,6 @@ function keyIsPressed (valueOfKeyPressed) {
 
 function FillGameBoard (userInput) {
   wordElement[row].querySelectorAll('.word')[column].innerText = userInput
-  wordtemp[column] = userInput
   ++column
 }
 
@@ -118,26 +115,26 @@ function saveBoardState(word_, row_) {
   }
   
   localStorage.setItem("board", JSON.stringify(boardState))
-  //console.log(JSON.parse(localStorage.getItem("board")))
 }
 
 window.addEventListener('load', (event) => {
   console.log("Page has been refreshed")
-  ++counter
 })
 window.onload = (event) => {
-  console.log(`${wordtemp}`)
-  ++counter
+
   let boardState = localStorage.getItem("board")
   boardState = JSON.parse(boardState)
   console.log(boardState)
-  // boardState.array.forEach(elem => {
-  //   for (let col=0; col<5; col++) {
-  //     FillGameBoard(elem.word.charAt(col))
-  //     if (col === 4) {
-  //       CheckIfGameEnded()
-  //     }
-  //   }
-  // });
+
+  const newRow = boardState.length
+  for (let i=0; i<newRow; i++) {
+    for (let j=0; j<5; j++) {
+      wordElement[i].querySelectorAll('.word')[j].innerText = boardState[i].word[j]
+      if (j===4){
+        CheckIfGameEnded()
+        ++row
+      }
+    }
+  }
 }
 
