@@ -7,6 +7,9 @@ let column = 0
 const WordOfTheDay = 'ShOuT'
 let NumberofCorrectAlphabets = 0
 let enteredWord = ''
+let boardState = []
+let counter = 0
+let wordtemp = []
 
 buttonElement.forEach((element) => {
   element.addEventListener('click', function () {
@@ -16,10 +19,9 @@ buttonElement.forEach((element) => {
 
 function keyIsPressed (valueOfKeyPressed) {
   if (valueOfKeyPressed.toUpperCase() === 'ENTER') {
-    CheckCorrectInputs(enteredWord)
+    saveBoardState(enteredWord, row)
     enteredWord = ''
     PlayerPressedEnter()
-    checkEnteredWord()
   } else if (valueOfKeyPressed.toUpperCase() === 'DEL') {
     Revert()
     if (column !== 0) {
@@ -33,6 +35,7 @@ function keyIsPressed (valueOfKeyPressed) {
 
 function FillGameBoard (userInput) {
   wordElement[row].querySelectorAll('.word')[column].innerText = userInput
+  wordtemp[column] = userInput
   ++column
 }
 
@@ -49,6 +52,8 @@ function CheckIfGameEnded () {
        if (NumberofCorrectAlphabets === 5) {
          setTimeout(function () {
            // your code to be executed after 1 second
+           boardState = {}
+           window.localStorage.clear()
            window.location.assign('/play/won')
          }, 2000)
        } else if (NumberofCorrectAlphabets !== 5 && row === 5) {
@@ -91,6 +96,46 @@ function Revert () {
   }
 }
 
-function CheckCorrectInputs (elem) {
+function saveBoardState(word_, row_) {
+  let temp = {
+    row: row_, 
+    word: word_
+  }
 
+  //put the latest word for that row and save updated obj
+  boardState.push(temp)
+
+  //if word for that row is incomplete or is already there, remove it
+  for (let i=0; i<boardState.length; i++) {
+    //console.log(boardState[i].word)
+    if (boardState[i].word.length < 4)
+    {
+      //console.log(boardState[i].word)
+      boardState.pop()
+    }
+  }
+  
+  localStorage.setItem("board", JSON.stringify(boardState))
+  //console.log(JSON.parse(localStorage.getItem("board")))
 }
+
+window.addEventListener('load', (event) => {
+  console.log(counter)
+  ++counter
+})
+window.onload = (event) => {
+  console.log(`${wordtemp}`)
+  ++counter
+  let boardState = localStorage.getItem("board")
+  boardState = JSON.parse(boardState)
+  console.log(boardState)
+  // boardState.array.forEach(elem => {
+  //   for (let col=0; col<5; col++) {
+  //     FillGameBoard(elem.word.charAt(col))
+  //     if (col === 4) {
+  //       CheckIfGameEnded()
+  //     }
+  //   }
+  // });
+}
+
