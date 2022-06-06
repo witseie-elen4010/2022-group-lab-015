@@ -50,6 +50,10 @@ io.on('connection', (socket) => {
   console.log('connected!', socket.id)
   socket.on('join_room', (data) => {
     const roomUsers = io.sockets.adapter.rooms.get(data.room)
-    console.log('user joined')
+    const numberOfClients = typeof roomUsers !== 'undefined' ? roomUsers.size : 0
+    console.log(`There are: ${numberOfClients} + clients`)
+    if (numberOfClients === 0) {
+      socket.join(data.room)
+    }
   })
 })
