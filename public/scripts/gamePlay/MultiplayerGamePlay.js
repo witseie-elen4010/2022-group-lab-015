@@ -15493,11 +15493,18 @@ function checkWinOrLose (PlayerGuess, Tilearray) {
   }
 }
 
-function joinRoom() {
+function joinRoom () {
   // Uncomment for Azure (maybe)
   // socket = io(ENDPOINT)
   const UserData = {
     room: roomcode
   }
   socket.emit('join_room', UserData)
+  // Client should do something if the room is full
+  socket.on('RoomCapacity', (data) => {
+    // Take user back to dash board if room is full
+    alert(data.message)
+    window.location.href = 'dashboard'
+    // Alert user that the room is full
+  })
 }
