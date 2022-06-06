@@ -3,7 +3,6 @@
 let socket = io.connect('http://localhost:8080')
 const ENDPOINT = 'https://g15competitivewordle.azurewebsites.net'
 const roomcode = localStorage.getItem('roomcode')
-console.log(roomcode)
 // Every 5 letter word accepted by application
 const dictionary = [
   'aahed',
@@ -15304,6 +15303,7 @@ let col = 0
 const board1 = document.querySelectorAll('.game-row')
 const Board = document.querySelector('[data-gameboard-container]')
 const keyboard = document.querySelector('[data-keyboard]')
+const UpdatedBoard = ['']
 
 const WORD_LENGTH = 4
 const FLIP_ANIMATION_DURATION = 500
@@ -15472,13 +15472,14 @@ function FlipTiles (tile, index, array, guess) {
           startGame()
         }
         const rowSend = (row - 1)
+        UpdateBoard(rowSend, array)
         const payLoad = {
           Row: rowSend,
-          board: array
+          board: UpdatedBoard
         }
         console.log('Array: ', array[1].dataset.state)
         console.log('row number: ', row)
-        socket.emit('BoardUpdate', JSON.stringify(payLoad))
+        socket.emit('BoardUpdate', payLoad)
         checkWinOrLose(guess, array)
       }, { once: true })
     }
@@ -15513,4 +15514,14 @@ function joinRoom () {
     window.location.href = 'dashboard'
     // Alert user that the room is full
   })
+}
+
+socket.on('OpponentBoard', (data) => {
+   console.log(data.board)
+})
+
+function UpdateBoard (rowSend, arr) {
+  for (let column = 0; column < 5; ++column) {
+    UpdatedBoard[column] = (arr[column].dataset.state).toString()
+  }
 }

@@ -62,7 +62,8 @@ io.on('connection', (socket) => {
       io.to(socket.id).emit('RoomCapacity', { message: 'Room Full!' })
     }
   })
-  socket.on('BoardUpdate', (data) => {
+  socket.on('BoardUpdate', (event) => {
     console.log('I need to update opponet..')
+    socket.broadcast.emit('OpponentBoard', event)
   })
 })
