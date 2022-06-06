@@ -15297,6 +15297,12 @@ const targetWords = [
 let row = 0
 let col = 0
 const board1 = document.querySelectorAll('.game-row')
+const board2 = document.querySelectorAll('.game-rowP2')
+
+for (let col = 0; col<5; ++col){
+  
+}
+
 const Board = document.querySelector('[data-gameboard-container]')
 const keyboard = document.querySelector('[data-keyboard]')
 
@@ -15465,8 +15471,6 @@ function FlipTiles (tile, index, array, guess) {
           col = 0
           startGame()
         }
-        console.log('Array: ', array[1].dataset.state)
-        console.log('row number: ', row)
         checkWinOrLose(guess, array)
       }, { once: true })
     }
