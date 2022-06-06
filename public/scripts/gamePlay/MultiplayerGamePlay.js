@@ -1,6 +1,6 @@
 'use strict'
 
-const socket = io.connect('http://localhost:8080')
+let socket = io.connect('http://localhost:8080')
 const ENDPOINT = 'https://g15competitivewordle.azurewebsites.net'
 const roomcode = localStorage.getItem('roomcode')
 console.log(roomcode)
@@ -15313,6 +15313,7 @@ const Actual = msOffset / 3600 / 24000
 const wordOfTheDay = targetWords[Math.floor(Actual)]
 const alertContainer = document.querySelector('[data-alert-container]')
 startGame()
+joinRoom()
 // grab every button and row elements
 // const buttonElement = document.querySelectorAll('button')
 
@@ -15490,4 +15491,13 @@ function checkWinOrLose (PlayerGuess, Tilearray) {
     Notification('word was ' + wordOfTheDay.toUpperCase(), null)
     stopGame()
   }
+}
+
+function joinRoom() {
+  // Uncomment for Azure (maybe)
+  // socket = io(ENDPOINT)
+  const UserData = {
+    room: roomcode
+  }
+  socket.emit('join_room', UserData)
 }
