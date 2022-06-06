@@ -42,6 +42,14 @@ const server = app.listen(PORT, () => {
 
 const io = require('socket.io')(server, {
   cors: {
-    origin: 'https://g15competitivewordle.azurewebsites.net'
+    origin: PORT
   }
+})
+
+io.on('connection', (socket) => {
+  console.log('connected!', socket.id)
+  socket.on('join_room', (data) => {
+    const roomUsers = io.sockets.adapter.rooms.get(data.room)
+    console.log('user joined')
+  })
 })
