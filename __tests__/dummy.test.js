@@ -10,6 +10,7 @@ test('Greet: hello', () => {
 
 /* //server dummy test using a temp client! review this test
 //before submitting it
+<<<<<<< HEAD
 test('', () => {
   const ws = require('ws')
   const client = new ws('ws://localhost:3000')
@@ -17,3 +18,12 @@ test('', () => {
     client.send('Hello')
   })
 }) */
+=======
+// test('', () => { //pu name of test in brackets
+//   const ws = require('ws')
+//   const client = new ws('ws://localhost:3000')
+//   client.on('open', () => {
+//     client.send('Hello')
+//   })
+// }) */
+>>>>>>> master

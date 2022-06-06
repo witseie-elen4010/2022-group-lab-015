@@ -4,7 +4,6 @@ const wordElement = document.querySelectorAll('.word-row')
 
 let row = 0
 let column = 0
-const WordOfTheDay = 'ShOuT'
 let NumberofCorrectAlphabets = 0
 let enteredWord = ''
 let boardState = []
@@ -59,7 +58,7 @@ function CheckIfGameEnded () {
         window.location.assign('/play/tryAgain')
        }
       }else if(WordOfTheDay.includes(Word[index].innerText) && Word[index] !== WordOfTheDay[index]){
-        WordOfTheDay = WordOfTheDay.replace(Word[index].innerText,'')
+        WordOfTheDay = WordOfTheDay.replace(Word[index].innerText,' ')
            Word[index].classList.add('word-orange')
       }
     else{ Word[index].classList.add('word-grey') }

@@ -7,7 +7,11 @@ const express = require('express')
 const operations = require('../database/databaseOperations')
 const profile = express.Router()
 
+<<<<<<< HEAD
 profile.get('/createAccount', function(req, res){
+=======
+profile.get('/createAccount', function (req, res) {
+>>>>>>> master
   res.sendFile(path.join(__dirname, '../views', 'profile', 'createAccount.html'))
 } )
 
@@ -32,10 +36,16 @@ profile.post('/api/createAccount', function (req, res) {
   if (usernameval !== '' && emailval !== '' && passwordval !== ''){
     validAccount = true
     if (validAccount) {
+<<<<<<< HEAD
       databaseOperation.CreateUser(nameval,surnameval,emailval,usernameval,passwordval)
       setTimeout(()=>{
         res.redirect('/')
       },1000)
+=======
+      const hashedPassword = await bcrypt.hash(passwordval, salt)
+      await databaseOperation.CreateUser(nameval, surnameval, emailval, usernameval, hashedPassword)
+      res.redirect('/')
+>>>>>>> master
     }
   } else res.redirect('/profile/createAccount')
 

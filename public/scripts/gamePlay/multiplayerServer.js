@@ -1,4 +1,4 @@
-'use strict'
+/* 'use strict'
 // const { request } = require('express')
 const express = require('express')
 const app = express()
@@ -7,10 +7,10 @@ const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const result = require('express-validator')
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 3000
 
-const maxClients = 2;
-let rooms = {}
+const maxClients = 2
+const rooms = {}
 
 app.use(cors)
 const server = app.listen(PORT, () => {
@@ -21,7 +21,7 @@ const io = require('socket.io')(server, {
   cors: {
     origin: 'https://g15competitivewordle.azurewebsites.net'
   }
-})
+}) */
 /* // set a headless wsServer that prints any new incoming Event
 const wsServer = new wSocket.Server({ noServer: true })
 wsServer.on('connection', socket => {
@@ -38,19 +38,19 @@ wsServer.on('request', request => {
   })
 }) */
 
-//creating a new room for others to join
+/* //creating a new room for others to join
 function createRoom(p) {
-  const room_ = genKey(5) //gens a random letter key thats index to identify the room    
-  rooms[room_] = [io] 
+  const room_ = genKey(5) //gens a random letter key thats index to identify the room
+  rooms[room_] = [io]
   io["room"] = room_ //assign room code to client
 }
-function genKey(length) { 
-  let result = '' 
+function genKey(length) {
+  let result = ''
   const characters = 'abcdefghijklmnop123456789'
-  for (let i = 0; i < length; i++) { 
-    result += characters.charAt(Math.floor(Math.random() * characters.length)) 
-  } 
-  return result 
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length))
+  }
+  return result
 }
 
 //joining a room, but it must exist and max cap must not be reached
@@ -85,4 +85,4 @@ function leaveRoom (p) {
 
 function closeRoom(r) {
   rooms = rooms.filter(key => key !== r)
-}
+} */
