@@ -1,4 +1,4 @@
-'use strict'
+/* 'use strict'
 // const { request } = require('express')
 const express = require('express')
 const app = express()
@@ -7,10 +7,10 @@ const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const result = require('express-validator')
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 3000
 
 const maxClients = 2
-let rooms = {}
+const rooms = {}
 
 app.use(cors)
 const server = app.listen(PORT, () => {
@@ -21,7 +21,7 @@ const io = require('socket.io')(server, {
   cors: {
     origin: 'https://g15competitivewordle.azurewebsites.net'
   }
-})
+}) */
 /* // set a headless wsServer that prints any new incoming Event
 const wsServer = new wSocket.Server({ noServer: true })
 wsServer.on('connection', socket => {
