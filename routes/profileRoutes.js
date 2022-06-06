@@ -9,7 +9,7 @@ const bcrypt = require('bcrypt')
 const profile = express.Router()
 const salt = 10
 
-profile.get('/createAccount', function(req, res) {
+profile.get('/createAccount', function (req, res) {
   res.sendFile(path.join(__dirname, '../views', 'profile', 'createAccount.html'))
 })
 
@@ -35,8 +35,8 @@ profile.post('/api/createAccount', async function (req, res) {
   if (usernameval !== '' && emailval !== '' && passwordval !== '' && nameval !== '' && surnameval !== '') {
     validAccount = true
     if (validAccount) {
-      const hashedPassword = await bcrypt.hash(passwordval,salt)
-      await databaseOperation.CreateUser(nameval,surnameval,emailval,usernameval,hashedPassword)
+      const hashedPassword = await bcrypt.hash(passwordval, salt)
+      await databaseOperation.CreateUser(nameval, surnameval, emailval, usernameval, hashedPassword)
       res.redirect('/')
     }
   } else {

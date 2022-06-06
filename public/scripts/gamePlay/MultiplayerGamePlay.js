@@ -1,4 +1,9 @@
 'use strict'
+
+const socket = io.connect('http://localhost:8080')
+const ENDPOINT = 'https://g15competitivewordle.azurewebsites.net'
+const roomcode = localStorage.getItem('roomcode')
+console.log(roomcode)
 // Every 5 letter word accepted by application
 const dictionary = [
   'aahed',

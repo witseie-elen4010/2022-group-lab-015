@@ -39,6 +39,16 @@ gamePlay.post('/api/play', function (req, res) {
   }
 })
 
+/* gamePlay.post('/api/dashboard', function (req, res) {
+  const playerGuess = req.body.guess.toLowerCase()
+  const wordOfDay = setWordOfTheDay()[1]
+  if (playerGuess === wordOfDay) {
+    res.redirect('/play/won')
+  } else {
+    res.redirect('/play/tryAgain')
+  }
+}) */
+
 function setWordOfTheDay () {
   const word = 'speak'
   TheWord.WordOfTheDay.push(word)

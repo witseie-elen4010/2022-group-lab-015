@@ -2,6 +2,9 @@
 
 const express = require('express')
 const app = express()
+const jwt = require('jsonwebtoken')
+const cors = require('cors')
+const result = require('express-validator')
 
 // load body-parser
 const bodyParser = require('body-parser')
@@ -27,6 +30,26 @@ app.use('/cdn', express.static('public'))
 
 // Set port to work on Azure as well
 const port = process.env.PORT || 3000
-app.listen(port)
+const PORT = process.env.PORT || 8080
 
+app.listen(port)
 console.log('Express server running on port: ', port)
+
+app.use(cors)
+const server = app.listen(PORT, () => {
+  console.log('server running on port: ', PORT)
+})
+
+const io = require('socket.io')(server, {
+  cors: {
+    origin: PORT
+  }
+})
+
+io.on('connection', (socket) => {
+  console.log('connected!', socket.id)
+  socket.on('join_room', (data) => {
+    const roomUsers = io.sockets.adapter.rooms.get(data.room)
+    console.log('user joined')
+  })
+})
