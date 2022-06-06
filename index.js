@@ -54,6 +54,12 @@ io.on('connection', (socket) => {
     console.log(`There are: ${numberOfClients} + clients`)
     if (numberOfClients === 0) {
       socket.join(data.room)
+    } else if (numberOfClients === 1) {
+      socket.join(data.room)
+      // start game if there are two player in room
+      socket.to(data.room).emit('sendInfo', { status: 'start' })
+    } else {
+      io.to(socket.id).emit('RoomCapacity', { message: 'Room Full!' })
     }
   })
 })
