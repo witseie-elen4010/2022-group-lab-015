@@ -57,7 +57,9 @@ function CheckIfGameEnded () {
            window.location.assign('/play/won')
          }, 2000)
        } else if (NumberofCorrectAlphabets !== 5 && row === 5) {
-         window.location.assign('/play/tryAgain')
+        boardState = {}
+        window.localStorage.clear() 
+        window.location.assign('/play/tryAgain')
        }
       }else if(WordOfTheDay.includes(Word[index].innerText) && Word[index] !== WordOfTheDay[index]){
         WordOfTheDay = WordOfTheDay.replace(Word[index].innerText,'')
@@ -110,7 +112,7 @@ function saveBoardState(word_, row_) {
     //console.log(boardState[i].word)
     if (boardState[i].word.length < 4)
     {
-
+      //console.log(boardState[i].word)
       boardState.pop()
     }
   }
@@ -120,8 +122,8 @@ function saveBoardState(word_, row_) {
 }
 
 window.addEventListener('load', (event) => {
-  console.log(counter)
-  //++counter
+  console.log("Page has been refreshed")
+  ++counter
 })
 window.onload = (event) => {
   console.log(`${wordtemp}`)
