@@ -10,5 +10,6 @@ joinRoomButton.addEventListener('click', () => {
   } else {
     localStorage.setItem('roomcode', RoomNumber)
     console.log(localStorage.getItem('roomcode'))
+    window.location.href = 'multiplayer'
   }
 })
