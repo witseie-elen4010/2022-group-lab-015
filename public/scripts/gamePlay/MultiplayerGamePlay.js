@@ -3,7 +3,6 @@
 let socket = io.connect('http://localhost:8080')
 const ENDPOINT = 'https://g15competitivewordle.azurewebsites.net'
 const roomcode = localStorage.getItem('roomcode')
-console.log(roomcode)
 // Every 5 letter word accepted by application
 const dictionary = [
   'aahed',
@@ -15304,6 +15303,8 @@ let col = 0
 const board1 = document.querySelectorAll('.game-row')
 const Board = document.querySelector('[data-gameboard-container]')
 const keyboard = document.querySelector('[data-keyboard]')
+let OpponentBoard = document.querySelectorAll('.game-rowP2')
+const UpdatedBoard = ['']
 
 const WORD_LENGTH = 4
 const FLIP_ANIMATION_DURATION = 500
@@ -15314,8 +15315,7 @@ const wordOfTheDay = targetWords[Math.floor(Actual)]
 const alertContainer = document.querySelector('[data-alert-container]')
 startGame()
 joinRoom()
-// grab every button and row elements
-// const buttonElement = document.querySelectorAll('button')
+console.log(OpponentBoard)
 
 function startGame () {
   document.addEventListener('click', handleMouseClick)
@@ -15471,8 +15471,15 @@ function FlipTiles (tile, index, array, guess) {
           col = 0
           startGame()
         }
-        console.log('Array: ', array[1].dataset.state)
-        console.log('row number: ', row)
+        const rowSend = (row - 1)
+        UpdateBoard(rowSend, array)
+        const payLoad = {
+          Row: rowSend,
+          board: UpdatedBoard
+        }
+        /* console.log('Array: ', array[1].dataset.state)
+        console.log('row number: ', row) */
+        socket.emit('BoardUpdate', payLoad)
         checkWinOrLose(guess, array)
       }, { once: true })
     }
@@ -15493,11 +15500,34 @@ function checkWinOrLose (PlayerGuess, Tilearray) {
   }
 }
 
-function joinRoom() {
+function joinRoom () {
   // Uncomment for Azure (maybe)
   // socket = io(ENDPOINT)
   const UserData = {
     room: roomcode
   }
   socket.emit('join_room', UserData)
+  // Client should do something if the room is full
+  socket.on('RoomCapacity', (data) => {
+    // Take user back to dash board if room is full
+    alert(data.message)
+    window.location.href = 'dashboard'
+    // Alert user that the room is full
+  })
+}
+
+socket.on('OpponentBoard', (data) => {
+  updateOpponentBoard(data.Row, data.board)
+})
+
+function UpdateBoard (rowSend, arr) {
+  for (let column = 0; column < 5; ++column) {
+    UpdatedBoard[column] = (arr[column].dataset.state).toString()
+  }
+}
+
+function updateOpponentBoard (theRow, theTiles) {
+  for (let column = 0; column < 5; ++column) {
+    OpponentBoard[theRow].querySelectorAll('.guessBox')[column].dataset.state = theTiles[column]
+  }
 }
