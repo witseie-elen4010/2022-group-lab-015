@@ -15471,8 +15471,14 @@ function FlipTiles (tile, index, array, guess) {
           col = 0
           startGame()
         }
+        const rowSend = (row - 1)
+        const payLoad = {
+          Row: rowSend,
+          board: array
+        }
         console.log('Array: ', array[1].dataset.state)
         console.log('row number: ', row)
+        socket.emit('BoardUpdate', JSON.stringify(payLoad))
         checkWinOrLose(guess, array)
       }, { once: true })
     }

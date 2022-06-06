@@ -62,4 +62,7 @@ io.on('connection', (socket) => {
       io.to(socket.id).emit('RoomCapacity', { message: 'Room Full!' })
     }
   })
+  socket.on('BoardUpdate', (data) => {
+    console.log('I need to update opponet..')
+  })
 })
