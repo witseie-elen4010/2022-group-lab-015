@@ -15303,6 +15303,7 @@ let col = 0
 const board1 = document.querySelectorAll('.game-row')
 const Board = document.querySelector('[data-gameboard-container]')
 const keyboard = document.querySelector('[data-keyboard]')
+let OpponentBoard = document.querySelectorAll('.game-rowP2')
 const UpdatedBoard = ['']
 
 const WORD_LENGTH = 4
@@ -15314,8 +15315,7 @@ const wordOfTheDay = targetWords[Math.floor(Actual)]
 const alertContainer = document.querySelector('[data-alert-container]')
 startGame()
 joinRoom()
-// grab every button and row elements
-// const buttonElement = document.querySelectorAll('button')
+console.log(OpponentBoard)
 
 function startGame () {
   document.addEventListener('click', handleMouseClick)
@@ -15477,8 +15477,8 @@ function FlipTiles (tile, index, array, guess) {
           Row: rowSend,
           board: UpdatedBoard
         }
-        console.log('Array: ', array[1].dataset.state)
-        console.log('row number: ', row)
+        /* console.log('Array: ', array[1].dataset.state)
+        console.log('row number: ', row) */
         socket.emit('BoardUpdate', payLoad)
         checkWinOrLose(guess, array)
       }, { once: true })
@@ -15517,11 +15517,17 @@ function joinRoom () {
 }
 
 socket.on('OpponentBoard', (data) => {
-   console.log(data.board)
+  updateOpponentBoard(data.Row, data.board)
 })
 
 function UpdateBoard (rowSend, arr) {
   for (let column = 0; column < 5; ++column) {
     UpdatedBoard[column] = (arr[column].dataset.state).toString()
+  }
+}
+
+function updateOpponentBoard (theRow, theTiles) {
+  for (let column = 0; column < 5; ++column) {
+    OpponentBoard[theRow].querySelectorAll('.guessBox')[column].dataset.state = theTiles[column]
   }
 }
