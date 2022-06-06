@@ -110,7 +110,7 @@ function saveBoardState(word_, row_) {
     //console.log(boardState[i].word)
     if (boardState[i].word.length < 4)
     {
-      //console.log(boardState[i].word)
+
       boardState.pop()
     }
   }
@@ -121,7 +121,7 @@ function saveBoardState(word_, row_) {
 
 window.addEventListener('load', (event) => {
   console.log(counter)
-  ++counter
+  //++counter
 })
 window.onload = (event) => {
   console.log(`${wordtemp}`)
