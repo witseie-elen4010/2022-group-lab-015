@@ -5,7 +5,7 @@ const app = express()
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const result = require('express-validator')
-
+const app2 = express()
 // load body-parser
 const bodyParser = require('body-parser')
 
@@ -30,13 +30,13 @@ app.use('/cdn', express.static('public'))
 
 // Set port to work on Azure as well
 const port = process.env.PORT || 3000
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 1337
 
 app.listen(port)
 console.log('Express server running on port: ', port)
 
-app.use(cors)
-const server = app.listen(PORT, () => {
+app2.use(cors)
+const server = app2.listen(PORT, () => {
   console.log('server running on port: ', PORT)
 })
 
@@ -57,7 +57,7 @@ io.on('connection', (socket) => {
     } else if (numberOfClients === 1) {
       socket.join(data.room)
       // start game if there are two player in room
-      socket.to(data.room).emit('sendInfo', { status: 'start' })
+      io.to(data.room).emit('gameStart', { status: 'start' })
     } else {
       io.to(socket.id).emit('RoomCapacity', { message: 'Room Full!' })
     }
