@@ -52,7 +52,7 @@ html, body {
 }
 
 header {
-    border-bottom: 1px solid rgb(58, 58, 60);
+    border-bottom: 1px solid rgb(27, 27, 27);
 
 }
 
@@ -105,3 +105,34 @@ header {
     width: 70%;
     box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
 }
+
+/* for forgotPassword page*/
+.form{
+    width:500px;
+    background:black;
+    padding:20px;
+    font-size:20px;
+    font-family:'Times New Roman';
+    color:whitesmoke;
+    margin:auto;
+ }
+ .input[type = text]{
+    padding:5px;
+    width:80%;
+    font-size:18px;
+    border-radius:0 10px 0 0;
+ }
+ .input[type = submit]{
+    padding:5px;
+    width:20;
+    font-size:18px;
+    border-radius:0 10px 0 0;
+    border:none;
+ }
+ .ForgotPassbutton{
+    padding:5px;
+    width:20;
+    font-size:18px;
+    border-radius:0 10px 0 0;
+    border:none;
+ }

@@ -5,11 +5,21 @@
     
     <script type ="module" defer src = "/cdn/scripts/gamePlay/dashBoard.js"></script>
     <title>MuliPlayer dashboard</title>
+    <link rel="stylesheet" href="/cdn/css/gameBoard.css">
 </head>
 <body>
+    <div id="container">
+        <div id="game">
+            <header>
+                <h1 class="title">CompetitiveWordle</h1>
+            </header>
+        </div>
+    </div>
+    <div class="loginBody">
+        <div class="loginContainer"
     <form action="" method="post">
-        <input type="text" id = "room-code" name = "room-code" placeholder="Enter room code" require>
-        <button type="button" id = "join-room">Join Room</button>
+        <input type="text" id = "room-code" name = "room-code" placeholder="Enter room code" class="form_Input" require>
+        <button type="button" id = "join-room" class="button">Join Room</button>
     </form>
 </body>
 </html>

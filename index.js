@@ -34,9 +34,6 @@ const PORT = process.env.PORT || 1337
 
 app.listen(port)
 console.log('Express server running on port: ', port)
-<<<<<<< HEAD
-//module.exports = app
-=======
 
 app2.use(cors)
 const server = app2.listen(PORT, () => {
@@ -70,4 +67,3 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('OpponentBoard', event)
   })
 })
->>>>>>> master
