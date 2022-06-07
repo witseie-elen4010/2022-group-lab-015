@@ -4,22 +4,36 @@
 <head>
     <title>Play Wordle</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/cdn/css/layout.css">
 </head>
 
 <body>
+    <div id="container">
+        <div id="game">
+            <header>
+                <h1 class="title">CompetitiveWordle</h1>
+            </header>
+        </div>
+    </div>
+    <br>
     <h1>Update Username</h1>
 
-    <form action="api/profile/update" method="post">
-        <div>
-        <label for="studentName">Enter current username:</label>
-        <input type="text"  name="olduser">
-        <label for="studentName">Enter new username:</label>
-        <input type="text"  name="newuser">
+    <div class="loginBody">
+        <div class="loginContainer">
+            <form action="api/profile/update" method="post">
+                <div>
+                <label for="studentName">Enter current username:</label>
+                <input type="text"  name="olduser" class="form_input">
+                <label for="studentName">Enter new username:</label>
+                <input type="text"  name="newuser" class="form_input">
+                </div>
+                <div class="button">
+                <button type="submit" class="button">Submit name</button>
+                </div>
+            </form>
         </div>
-        <div class="button">
-        <button type="submit">Submit name</button>
-        </div>
-        </form>
+    </div>
 </body>
 
 </html> 
