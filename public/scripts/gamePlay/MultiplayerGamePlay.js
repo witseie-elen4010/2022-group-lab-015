@@ -1,6 +1,6 @@
 'use strict'
 
-let socket = io.connect('http://localhost:8080')
+let socket = io.connect('http://localhost:1337')
 const ENDPOINT = 'https://g15competitivewordle.azurewebsites.net'
 const roomcode = localStorage.getItem('roomcode')
 // Every 5 letter word accepted by application
