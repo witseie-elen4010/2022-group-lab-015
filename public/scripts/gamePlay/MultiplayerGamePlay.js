@@ -1,6 +1,6 @@
 'use strict'
 
-const socket = io.connect('https://g15competitivewordle.azurewebsites.net') // ('http://localhost:3000')
+let socket = io.connect('https://g15competitivewordle.azurewebsites.net') // ('http://localhost:3000')
 const ENDPOINT = 'https://g15competitivewordle.azurewebsites.net'
 const roomcode = localStorage.getItem('roomcode')
 // Every 5 letter word accepted by application
@@ -15508,7 +15508,7 @@ function checkWinOrLose (PlayerGuess, Tilearray) {
 
 function joinRoom () {
   // Uncomment for Azure (maybe)
-  // socket = io(ENDPOINT)
+  socket = io(ENDPOINT)
   const UserData = {
     room: roomcode
   }
@@ -15528,6 +15528,11 @@ socket.on('gameStart', (status) => {
 
 socket.on('OpponentBoard', (data) => {
   updateOpponentBoard(data.Row, data.board)
+})
+
+socket.on('opponent_win', () => {
+  alert('You lost!')
+  window.location.href = 'dashboard'
 })
 
 function UpdateBoard (rowSend, arr) {
