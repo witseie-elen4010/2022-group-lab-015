@@ -26,6 +26,6 @@
     "websocket": "^1.0.34"
   },
   "devDependencies": {
-    "jest": "^28.1.0"
+    "jest": "^28.1.1"
   }
 }

@@ -1,14 +1,23 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
-    <title>Play Wordle</title>
     <meta charset="utf-8">
+    <title>Play Wordle</title>
     <script defer src = "/cdn/scripts/gamePlay/gamePlay.js"></script>
+
+    <!-- CSS only -->
+    
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
+
     <link rel="stylesheet" href="/cdn/css/gameBoard.css">
+    
 </head>
 
 <body>
+    <!--User browser should support JavaScript-->
+    <noscript>JavaScript Error</noscript>
   <div id="container">
     <div id="game">
         <header>
@@ -16,110 +25,103 @@
         </header>
     </div>
 </div>
-    <h1>Guess Word</h1>
+    
 
-<!--    <form action= "api/play" method="post">
-
-        <input type="text" id ="guess" name = "guess" placeholder="Enter guess" required>
-
-        <button id = "submit-guess">Submit guess</button>
-    </form>-->
-
-        <!--<br><br>-->
-        <!--This is the game board and the keyboard-->
-        <div class="gameBoard">
-            <div class="gameBoard-container">
-                <!--six rows for six guesses-->
-                <!--Five letters per row-->
-                <div class ="word-row">
-                  <div class ="word"></div>
-                  <div class = "word"></div>
-                  <div class = "word"></div>
-                  <div class = "word"></div>
-                  <div class = "word"></div>
-                </div>
-          
-                <div class ="word-row">
-                  <div class ="word"></div>
-                  <div class = "word"></div>
-                  <div class = "word"></div>
-                  <div class = "word"></div>
-                  <div class = "word"></div>
-                </div>
-          
-                <div class ="word-row">
-                  <div class ="word"></div>
-                  <div class = "word"></div>
-                  <div class = "word"></div>
-                  <div class = "word"></div>
-                  <div class = "word"></div>
-                </div>
-          
-                <div class ="word-row">
-                  <div class ="word"></div>
-                  <div class = "word"></div>
-                  <div class = "word"></div>
-                  <div class = "word"></div>
-                  <div class = "word"></div>
-                </div>
-          
-                <div class ="word-row">
-                  <div class ="word"></div>
-                  <div class = "word"></div>
-                  <div class = "word"></div>
-                  <div class = "word"></div>
-                  <div class = "word"></div>
-                </div>
-          
-                <div class ="word-row">
-                  <div class ="word"></div>
-                  <div class = "word"></div>
-                  <div class = "word"></div>
-                  <div class = "word"></div>
-                  <div class = "word"></div>
-                </div>
+            <div class="row no-gutters">
+                <div class="col-md-6 no-gutters">
+                    <div class="player1-side-left">
+                        <div class="alert-container" data-alert-container>
+                        </div>
+                         <div data-gameboard-container class = "gameBoard-Container">
+                                <div class = "game-row" id="gameRow1">
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                </div>
+                                <div class = "game-row" id="gameRow2">
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                </div>
+                                <div class = "game-row" id="gameRow3">
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                </div>
+                                <div class = "game-row" id="gameRow4">
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                </div>
+                                <div class = "game-row" id="gameRow5">
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                </div>
+                                <div class = "game-row" id="gameRow6">
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                    <div class = "guessBox"></div>
+                                </div>
+                            </div>
+                            <div class ="keyboard" id = "keyboard">
+                                <div data-keyboard class = "keyboard-container">
+                                    <div>
+                                        <button data-key ="Q" id = "Q" class = "key">Q</button>
+                                        <button data-key ="W" id = "W" class = "key">W</button>
+                                        <button data-key ="E" id = "E" class = "key">E</button>
+                                        <button data-key ="R" id = "R" class = "key">R</button>
+                                        <button data-key ="T" id = "T" class = "key">T</button>
+                                        <button data-key ="Y" id = "Y" class = "key">Y</button>
+                                        <button data-key ="U" id = "U" class = "key">U</button>
+                                        <button data-key ="I" id = "I" class = "key">I</button>
+                                        <button data-key ="O" id = "O" class = "key">O</button>
+                                        <button data-key ="P" id = "P" class = "key">P</button>
+                                    </div>
+                                    <div>
+                                        <button data-key ="A" id = "A" class = "key">A</button>
+                                        <button data-key ="S" id = "S" class = "key">S</button>
+                                        <button data-key ="D" id = "D" class = "key">D</button>
+                                        <button data-key ="F" id = "F" class = "key">F</button>
+                                        <button data-key ="G" id = "G" class = "key">G</button>
+                                        <button data-key ="H" id = "H" class = "key">H</button>
+                                        <button data-key ="J" id = "J" class = "key">J</button>
+                                        <button data-key ="K" id = "K" class = "key">K</button>
+                                        <button data-key ="L" id = "L" class = "key">L</button>
+                                        <button data-key ="P" id = "P" class = "key">P</button>
+                                    </div>
+                                    <div>
+                                        <button data-entr ="Enter" id = "Enter" class = "key">Enter</button>
+                                        <button data-key ="Z" id = "Z" class = "key">Z</button>
+                                        <button data-key ="X" id = "X" class = "key">X</button>
+                                        <button data-key ="C" id = "C" class = "key">C</button>
+                                        <button data-key ="V" id = "V" class = "key">V</button>
+                                        <button data-key ="B" id = "B" class = "key">B</button>
+                                        <button data-key ="N" id = "N" class = "key">N</button>
+                                        <button data-key ="M" id = "M" class = "key">M</button>
+                                        <button data-del ="DEL" id = "DEL" class = "key">DEL</button>
+                                    </div>
+                                </div>
+    
+                        </div>
+                    </div>
+                </div>                            
             </div>
-          
-          </div>
 
-          <div class="keyboard">
-              <div class="keyboard-container">
-                      <div>
-                      <button data-key = "Q">Q</button>
-                      <button data-key = "W">W</button>
-                      <button data-key = "E">E</button>
-                      <button data-key = "R">R</button>
-                      <button data-key = "T">T</button>
-                      <button data-key = "Y">Y</button>
-                      <button data-key = "U">U</button>
-                      <button data-key = "I">I</button>
-                      <button data-key = "O">O</button>
-                      <button data-key = "P">P</button>
-                      </div>
-                      <div>
-                      <button data-key = "A">A</button>
-                      <button data-key = "S">S</button>
-                      <button data-key = "D">D</button>
-                      <button data-key = "F">F</button>
-                      <button data-key = "G">G</button>
-                      <button data-key = "H">H</button>
-                      <button data-key = "J">J</button>
-                      <button data-key = "K">K</button>
-                      <button data-key = "L">L</button>
-                      </div>
-                      <div>
-                      <button data-key = "Enter">Enter</button>
-                      <button data-key = "Z">Z</button>
-                      <button data-key = "X">X</button>
-                      <button data-key = "C">C</button>
-                      <button data-key = "V">V</button>
-                      <button data-key = "B">B</button>
-                      <button data-key = "N">N</button>
-                      <button data-key = "M">M</button>
-                      <button data-key = "DEL">DEL</button>
-                      </div>
-              </div>
-          </div>
+    
+
 </body>
 
 </html>
