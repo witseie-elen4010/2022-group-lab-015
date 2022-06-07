@@ -15495,6 +15495,7 @@ function FlipTiles (tile, index, array, guess) {
 function checkWinOrLose (PlayerGuess, Tilearray) {
   if (PlayerGuess === wordOfTheDay.toLocaleUpperCase()) {
     Notification('You won', 5000)
+    socket.emit('on_win' (''))
     stopGame()
     return
   }

@@ -67,4 +67,7 @@ io.on('connection', (socket) => {
     console.log('I need to update opponet..')
     socket.broadcast.emit('OpponentBoard', event)
   })
+  socket.on('on_win', (event) => {
+    socket.broadcast.emit('opponent_win', event)
+  } )
 })
