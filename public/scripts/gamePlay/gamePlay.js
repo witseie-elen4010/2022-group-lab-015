@@ -6,6 +6,7 @@ let row = 0
 let column = 0
 let NumberofCorrectAlphabets = 0
 let enteredWord = ''
+let boardState = []
 
 buttonElement.forEach((element) => {
   element.addEventListener('click', function () {
@@ -15,10 +16,9 @@ buttonElement.forEach((element) => {
 
 function keyIsPressed (valueOfKeyPressed) {
   if (valueOfKeyPressed.toUpperCase() === 'ENTER') {
-    CheckCorrectInputs(enteredWord)
+    saveBoardState(enteredWord, row)
     enteredWord = ''
     PlayerPressedEnter()
-    checkEnteredWord()
   } else if (valueOfKeyPressed.toUpperCase() === 'DEL') {
     Revert()
     if (column !== 0) {
@@ -48,10 +48,14 @@ function CheckIfGameEnded () {
        if (NumberofCorrectAlphabets === 5) {
          setTimeout(function () {
            // your code to be executed after 1 second
+           boardState = {}
+           window.localStorage.clear()
            window.location.assign('/play/won')
          }, 2000)
        } else if (NumberofCorrectAlphabets !== 5 && row === 5) {
-         window.location.assign('/play/tryAgain')
+        boardState = {}
+        window.localStorage.clear() 
+        window.location.assign('/play/tryAgain')
        }
       }else if(WordOfTheDay.includes(Word[index].innerText) && Word[index] !== WordOfTheDay[index]){
         WordOfTheDay = WordOfTheDay.replace(Word[index].innerText,' ')
@@ -90,6 +94,46 @@ function Revert () {
   }
 }
 
-function CheckCorrectInputs (elem) {
+function saveBoardState(word_, row_) {
+  let temp = {
+    row: row_, 
+    word: word_
+  }
 
+  //put the latest word for that row and save updated obj
+  boardState.push(temp)
+
+  //if word for that row is incomplete or is already there, remove it
+  for (let i=0; i<boardState.length; i++) {
+    //console.log(boardState[i].word)
+    if (boardState[i].word.length < 4)
+    {
+      //console.log(boardState[i].word)
+      boardState.pop()
+    }
+  }
+  
+  localStorage.setItem("board", JSON.stringify(boardState))
 }
+
+window.addEventListener('load', (event) => {
+  console.log("Page has been refreshed")
+})
+window.onload = (event) => {
+
+  let boardState = localStorage.getItem("board")
+  boardState = JSON.parse(boardState)
+  console.log(boardState)
+
+  const newRow = boardState.length
+  for (let i=0; i<newRow; i++) {
+    for (let j=0; j<5; j++) {
+      wordElement[i].querySelectorAll('.word')[j].innerText = boardState[i].word[j]
+      if (j===4){
+        CheckIfGameEnded()
+        ++row
+      }
+    }
+  }
+}
+
