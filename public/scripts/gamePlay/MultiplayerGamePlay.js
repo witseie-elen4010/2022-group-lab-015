@@ -15313,7 +15313,8 @@ const msOffset = Date.now() - DaysOffset
 const Actual = msOffset / 3600 / 24000
 const wordOfTheDay = targetWords[Math.floor(Actual)]
 const alertContainer = document.querySelector('[data-alert-container]')
-startGame()
+let gameStart = false
+// startGame()
 joinRoom()
 console.log(OpponentBoard)
 
@@ -15515,6 +15516,10 @@ function joinRoom () {
     // Alert user that the room is full
   })
 }
+
+socket.on('gameStart', (status) => {
+  startGame()
+})
 
 socket.on('OpponentBoard', (data) => {
   updateOpponentBoard(data.Row, data.board)
