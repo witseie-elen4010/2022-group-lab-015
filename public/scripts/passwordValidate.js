@@ -27,7 +27,4 @@ modal.addEventListener('click', () => {
     })
 })
 
-// modalbtn.addEventListener('click', () => {
-//     window.Location.assign('/')
-//     modal.style.display ='none'
-// })
+

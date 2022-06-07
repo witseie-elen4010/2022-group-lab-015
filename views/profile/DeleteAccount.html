@@ -11,70 +11,71 @@
         <div id="container">
             <div id="game">
                 <header>
-                    <h1 class="title">Wordle</h1>
+                    <h1 class="title">CompetitiveWordle</h1>
                 </header>
             </div>
         </div>
         <div align = "center">
-              <h1>Delete Account</h1>
+              <h1>You want to Delete Account</h1>
         </div>
-        <div>
-            <p>
-            Hi,
-            <br>
-            We are sorry to hear that you want to delete your Account.
-            </p>
-        </div>
-        <div>
-            <p>
-                <b>Keeping Your Data Safe</b>
+        <div class="loginBody">
+            <div>
+                <p>
+                Hi,
                 <br>
-                Nothing is more important to us than the safety and security of the Wordle communinity.
-                <br>
-                So we will never make comprimises when it comes to safeguarding your data.
-            </p>
-        </div>
-        <div>
-                    <form action = api/profile/delete  method = "post">
-                        <p>
-                           <b>Why are you deleting your account ?</b>
-                            <select class = "select" required>
-                                <option disabled selected>Select</option>
-                                <option value ="option1">Having troubles playing the game</option>
-                                <option value ="option2">Created second account</option>
-                                <option value ="option3">Concerned about my data</option>
-                                <option value ="option4">Just need a break</option>
-                                <option value ="option5">Privacy concerns</option>
-                                <option value ="option6">Something else</option>
-                            </select>
-                        </p>
-                        <p><b>Please confirm your login credentials to delete account</b></p>
-                        <div class = "deleteForm">
-                            <div>
-                                <label for="username">Username:</label>
-                                <br>
-                                <input type="text"  name="username"placeholder="username" required>
-                                <br>
-                                <br>
-                                <label for="password" >Password:</label>
-                                <br>
-                                <input type="password"  name="userpassword" placeholder="password" required><br><br>
+                We are sorry to hear that you want to delete your Account.
+                </p>
+            </div>
+            <div>
+                <p>
+                    <b>Keeping Your Data Safe</b>
+                    <br>
+                    Nothing is more important to us than the safety and security of the Wordle communinity.
+                    <br>
+                    So we will never make compromises when it comes to safeguarding your data.
+                </p>
+            </div>
+            <div>
+                        <form action = api/profile/delete  method = "post">
+                            <p>
+                            <b>Tell us why you want to delete your account:</b>
+                                <select class = "select" required>
+                                    <option disabled selected>Select</option>
+                                    <option value ="option1">Having troubles playing the game</option>
+                                    <option value ="option2">Created second account</option>
+                                    <option value ="option3">Concerned about my data</option>
+                                    <option value ="option4">Just need a break</option>
+                                    <option value ="option5">Privacy concerns</option>
+                                    <option value ="option6">Something else</option>
+                                </select>
+                            </p>
+                            <p><b>confirm your login credentials to delete account</b></p>
+                            <div class = "deleteForm">
+                                <div>
+                                    <label for="username">Username:</label>
+                                    <br>
+                                    <input type="text" class="form_input" name="username"placeholder="username" required>
+                                    <br>
+                                    <label for="password" >Password:</label>
+                                    <br>
+                                    <input type="password" class="form_input" name="userpassword" placeholder="password" required><br><br>
+                                </div>
+                                    Please note, deleting an account is a permanent action and cannot be reversed. All your personal
+                                    and log information will be deleted from our database. To continue click the 'Delete Account' button below or 'Cancel' to cancel this process.
+                                <div>
+                                    <button type="submit" class="button">Delete Account</button>
+                                </div>
+                            </form>
+                            <form action = api/profile/back method = "post" >
+                                <div align = "center" >
+                                <button type="submit">Cancel</button>
                             </div>
-                                Please note, deleting an account is a permanent action and cannot be reversed. All your personal
-                                and log information will be deleted from our database. To continue click Delete Account.
-                                <br>
-                            <div>
-                                <br>
-                                <button type="submit">Delete Account</button>
+                        </form>
                             </div>
-                        </div>
-                    </form>
-                    <form action = api/profile/back method = "post" >
-                        <div align = "center" >
-                           <button type="submit">Cancel</button>
-                       </div>
-                     </form>
-             </div>
+
+                        >
+                </div>
+            </div>
         </div>
     </body>
 </html>

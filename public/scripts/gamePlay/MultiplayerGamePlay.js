@@ -15301,6 +15301,12 @@ const targetWords = [
 let row = 0
 let col = 0
 const board1 = document.querySelectorAll('.game-row')
+const board2 = document.querySelectorAll('.game-rowP2')
+
+for (let col = 0; col<5; ++col){
+  
+}
+
 const Board = document.querySelector('[data-gameboard-container]')
 const keyboard = document.querySelector('[data-keyboard]')
 let OpponentBoard = document.querySelectorAll('.game-rowP2')
