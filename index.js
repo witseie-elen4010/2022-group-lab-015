@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const result = require('express-validator')
 const app2 = express()
+const server = require('http').createServer(app)
 // load body-parser
 const bodyParser = require('body-parser')
 
@@ -30,19 +31,19 @@ app.use('/cdn', express.static('public'))
 
 // Set port to work on Azure as well
 const port = process.env.PORT || 3000
-const PORT = process.env.PORT || 1337
+// const PORT = process.env.PORT || 1337
 
-app.listen(port)
-console.log('Express server running on port: ', port)
+// app.listen(port)
+// console.log('Express server running on port: ', port)
 
 app2.use(cors)
-const server = app2.listen(PORT, () => {
-  console.log('server running on port: ', PORT)
+server.listen(port, () => {
+  console.log('server running on port: ', port)
 })
 
 const io = require('socket.io')(server, {
   cors: {
-    origin: PORT
+    origin: port
   }
 })
 
