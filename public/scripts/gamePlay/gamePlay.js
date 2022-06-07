@@ -15497,6 +15497,7 @@ function checkWinOrLose (numofcorrect) {
       }, 2000)
     stopGame()
   }
+  enteredWord = enteredWord.slice(0, -1)
 }
 
 function saveBoardState(word_, row_) {
