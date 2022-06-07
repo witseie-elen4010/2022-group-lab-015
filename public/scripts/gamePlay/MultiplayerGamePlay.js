@@ -15301,6 +15301,7 @@ const targetWords = [
 let row = 0
 let col = 0
 const board1 = document.querySelectorAll('.game-row')
+const onWin = 'Won!'
 
 /* for (let col = 0; col < 5; ++col) {
 
@@ -15495,8 +15496,13 @@ function FlipTiles (tile, index, array, guess) {
 function checkWinOrLose (PlayerGuess, Tilearray) {
   if (PlayerGuess === wordOfTheDay.toLocaleUpperCase()) {
     Notification('You won', 5000)
-    socket.emit('on_win' (''))
+    socket.emit('on_win', (onWin))
+    // Empty room
+    const reset = 0
+    localStorage.setItem('roomcode', reset)
+    // redirect to dashBoard
     stopGame()
+    window.location.href = 'dashboard'
     return
   }
   // const FreePieces = Board.querySelectorAll(':not([data-letter])')
@@ -15517,7 +15523,7 @@ function joinRoom () {
   // Client should do something if the room is full
   socket.on('RoomCapacity', (data) => {
     // Take user back to dash board if room is full
-    alert(data.message)
+    Notification(data.message, 5000)
     window.location.href = 'dashboard'
     // Alert user that the room is full
   })
@@ -15532,7 +15538,7 @@ socket.on('OpponentBoard', (data) => {
 })
 
 socket.on('opponent_win', () => {
-  alert('You lost!')
+  alert('You Lost!')
   window.location.href = 'dashboard'
 })
 

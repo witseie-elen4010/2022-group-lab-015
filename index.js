@@ -64,10 +64,10 @@ io.on('connection', (socket) => {
     }
   })
   socket.on('BoardUpdate', (event) => {
-    console.log('I need to update opponet..')
+    // console.log('I need to update opponet..')
     socket.broadcast.emit('OpponentBoard', event)
   })
   socket.on('on_win', (event) => {
     socket.broadcast.emit('opponent_win', event)
-  } )
+  })
 })
