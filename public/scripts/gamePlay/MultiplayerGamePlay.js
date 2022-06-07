@@ -1,6 +1,6 @@
 'use strict'
 
-const socket = io.connect('https://g15competitivewordle.azurewebsites.net') // ('http://localhost:3000')
+let socket = io.connect('https://g15competitivewordle.azurewebsites.net') // ('http://localhost:3000')
 const ENDPOINT = 'https://g15competitivewordle.azurewebsites.net'
 const roomcode = localStorage.getItem('roomcode')
 // Every 5 letter word accepted by application
@@ -15301,6 +15301,7 @@ const targetWords = [
 let row = 0
 let col = 0
 const board1 = document.querySelectorAll('.game-row')
+const onWin = 'Won!'
 
 /* for (let col = 0; col < 5; ++col) {
 
@@ -15495,6 +15496,11 @@ function FlipTiles (tile, index, array, guess) {
 function checkWinOrLose (PlayerGuess, Tilearray) {
   if (PlayerGuess === wordOfTheDay.toLocaleUpperCase()) {
     Notification('You won', 5000)
+    socket.emit('on_win', (onWin))
+    // Empty room
+    const reset = 0
+    localStorage.setItem('roomcode', reset)
+    // redirect to dashBoard
     stopGame()
     return
   }
@@ -15508,7 +15514,7 @@ function checkWinOrLose (PlayerGuess, Tilearray) {
 
 function joinRoom () {
   // Uncomment for Azure (maybe)
-  // socket = io(ENDPOINT)
+  socket = io(ENDPOINT)
   const UserData = {
     room: roomcode
   }
@@ -15516,7 +15522,7 @@ function joinRoom () {
   // Client should do something if the room is full
   socket.on('RoomCapacity', (data) => {
     // Take user back to dash board if room is full
-    alert(data.message)
+    Notification(data.message, 5000)
     window.location.href = 'dashboard'
     // Alert user that the room is full
   })
@@ -15528,6 +15534,11 @@ socket.on('gameStart', (status) => {
 
 socket.on('OpponentBoard', (data) => {
   updateOpponentBoard(data.Row, data.board)
+})
+
+socket.on('opponent_win', () => {
+  alert('You Lost!')
+  window.location.href = 'dashboard'
 })
 
 function UpdateBoard (rowSend, arr) {
