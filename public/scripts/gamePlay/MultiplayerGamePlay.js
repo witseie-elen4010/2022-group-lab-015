@@ -15477,8 +15477,6 @@ function FlipTiles (tile, index, array, guess) {
           col = 0
           startGame()
         }
-<<<<<<< HEAD
-=======
         const rowSend = (row - 1)
         UpdateBoard(rowSend, array)
         const payLoad = {
@@ -15488,7 +15486,6 @@ function FlipTiles (tile, index, array, guess) {
         /* console.log('Array: ', array[1].dataset.state)
         console.log('row number: ', row) */
         socket.emit('BoardUpdate', payLoad)
->>>>>>> master
         checkWinOrLose(guess, array)
       }, { once: true })
     }
