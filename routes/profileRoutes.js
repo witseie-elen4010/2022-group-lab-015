@@ -51,7 +51,8 @@ profile.post('/api/profile/reset', async function (req, res) {
   const validUser = await databaseOperation.DoesUserExistByUsername(currentUsername)
   if (validUser) {
     if (firstPassword === secondPassword) {
-      await databaseOperation.UpdatePassword(currentUsername, firstPassword)
+      const hashedPassword = await bcrypt.hash(passwordval, salt)
+      await databaseOperation.UpdatePassword(currentUsername,hashedPassword)
       res.redirect('/')
     } else {
       res.redirect('/profile/ResetPassword')
