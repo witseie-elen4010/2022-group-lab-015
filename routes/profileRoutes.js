@@ -51,7 +51,8 @@ profile.post('/api/profile/reset', async function (req, res) {
   const validUser = await databaseOperation.DoesUserExistByUsername(currentUsername)
   if (validUser) {
     if (firstPassword === secondPassword) {
-      await databaseOperation.UpdatePassword(currentUsername, firstPassword)
+      const hashedPassword = await bcrypt.hash(firstPassword, salt)
+      await databaseOperation.UpdatePassword(currentUsername,hashedPassword)
       res.redirect('/')
     } else {
       res.redirect('/profile/ResetPassword')
@@ -64,9 +65,14 @@ profile.post('/api/profile/reset', async function (req, res) {
 profile.post('/api/profile/delete', async function (req, res) {
   const Username = req.body.username
   const Password = req.body.userpassword
-  const isUserDeleted = await databaseOperation.DeleteUser(Username, Password)
-  if (isUserDeleted) {
-    res.redirect('/')
+  const validUser = await databaseOperation.DoesUserExistByUsername(Username)
+  if (validUser) {
+    const SecuredPassword = await databaseOperation.GetUserPassword(Username)
+    const validLogin = await bcrypt.compare(Password, SecuredPassword)
+    if(validLogin){
+      await databaseOperation.DeleteUser(Username)
+      res.redirect('/')
+    }
   } else {
     res.redirect('/DeleteAccount')
   }

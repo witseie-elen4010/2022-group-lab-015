@@ -71,13 +71,12 @@ operations.UserLogs = async (userName, guess, date , time) => {
 }
 
 
-operations.DeleteUser = async (username, password) => {
+operations.DeleteUser = async (username) => {
   try {
     let instance = await dataBase.pools
     await instance.request()
     .input('user', dataBase.sql.NVarChar, username)
-    .input('password', dataBase.sql.NVarChar, password)
-    .query('DELETE FROM WordleUsers WHERE Username = @user AND Password =@password')
+    .query('DELETE FROM WordleUsers WHERE Username = @user')
     return true
   } catch (error) {
     console.log(error.message)
