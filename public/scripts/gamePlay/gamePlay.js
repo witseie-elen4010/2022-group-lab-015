@@ -15300,6 +15300,8 @@ const board = document.querySelectorAll('.game-row')
 const Board = document.querySelector('[data-gameboard-container]')
 const keyboard = document.querySelector('[data-keyboard]')
 const UpdatedBoard = ['']
+let boardState = []
+let enteredWord = ''
 
 const WORD_LENGTH = 4
 const FLIP_ANIMATION_DURATION = 500
@@ -15326,6 +15328,8 @@ function handleMouseClick (clickEvent) {
   }
 
   if (clickEvent.target.matches('[data-entr]')) {
+    saveBoardState(enteredWord, row)
+    enteredWord = ''
     submitGuess()
     return
   }
@@ -15338,6 +15342,8 @@ function handleMouseClick (clickEvent) {
 function handleKeyPressed (pressedKey) {
   console.log(pressedKey)
   if (pressedKey.key === 'Enter') {
+    saveBoardState(enteredWord, row)
+    enteredWord = ''
     submitGuess()
     return
   }
@@ -15350,6 +15356,8 @@ function handleKeyPressed (pressedKey) {
   // If key matches letters from A -> Z
   if (pressedKey.key.match(/^[a-z]$/)) {
     pressKey(pressedKey.key)
+    enteredWord = enteredWord + pressedKey.key
+   // console.log(enteredWord)
   }
 }
 
@@ -15358,6 +15366,7 @@ function pressKey (Pressedkey) {
   if (col > WORD_LENGTH) return
   board[row].querySelectorAll('.guessBox')[col].innerText = Pressedkey.toUpperCase()
   board[row].querySelectorAll('.guessBox')[col].dataset.state = 'active'
+  enteredWord = enteredWord + Pressedkey
   if (col < 5) ++col
 }
 
@@ -15479,8 +15488,8 @@ function checkWinOrLose (numofcorrect) {
     Notification('You won', 5000)
     setTimeout(function () {
       // your code to be executed after 1 second
-     // boardState = {}
-     // window.localStorage.clear()
+      boardState = {}
+     window.localStorage.clear()
       window.location.assign('/play/won')
     }, 2000)
     stopGame()
@@ -15491,8 +15500,8 @@ function checkWinOrLose (numofcorrect) {
     Notification('word was ' + wordOfTheDay.toUpperCase(), null)
     setTimeout(function () {
         // your code to be executed after 1 second
-       // boardState = {}
-       // window.localStorage.clear()
+        boardState = {}
+        window.localStorage.clear()
        window.location.assign('/play/tryAgain')
       }, 2000)
     stopGame()
@@ -15507,6 +15516,7 @@ function saveBoardState(word_, row_) {
 
   //put the latest word for that row and save updated obj
   boardState.push(temp)
+  console.log(row_)
 
   //if word for that row is incomplete or is already there, remove it
   for (let i=0; i<boardState.length; i++) {
@@ -15533,13 +15543,11 @@ window.onload = (event) => {
   const newRow = boardState.length
   for (let i=0; i<newRow; i++) {
     for (let j=0; j<5; j++) {
-      wordElement[i].querySelectorAll('.word')[j].innerText = boardState[i].word[j]
+      board[i].querySelectorAll('.guessBox')[j].innerText = boardState[i].word[j]
       if (j===4){
-        CheckIfGameEnded()
-        ++row
+        submitGuess()
+        row++
       }
     }
   }
 }
-
-
