@@ -30,20 +30,20 @@ app.use('/account', AccountRoutes)
 app.use('/cdn', express.static('public'))
 
 // Set port to work on Azure as well
-const port = process.env.PORT || 1337
+const port = process.env.PORT || 3000
 // const PORT = process.env.PORT || 1337
 
-app.listen(3000)
+// app.listen(3000)
 // console.log('Express server running on port: ', port)
 
-// server(app).use(cors)
+// app.use(cors)
 server.listen(port, () => {
   console.log('server running on port: ', port)
 })
 
 const io = require('socket.io')(server, {
   cors: {
-    origin: port
+    origin: 'https://g15competitivewordle.azurewebsites.net' // port
   }
 })
 

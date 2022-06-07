@@ -1,6 +1,6 @@
 'use strict'
 
-let socket = io.connect('http://localhost:1337')
+const socket = io.connect('https://g15competitivewordle.azurewebsites.net') // ('http://localhost:3000')
 const ENDPOINT = 'https://g15competitivewordle.azurewebsites.net'
 const roomcode = localStorage.getItem('roomcode')
 // Every 5 letter word accepted by application
@@ -15301,15 +15301,14 @@ const targetWords = [
 let row = 0
 let col = 0
 const board1 = document.querySelectorAll('.game-row')
-const board2 = document.querySelectorAll('.game-rowP2')
 
-for (let col = 0; col<5; ++col){
-  
-}
+/* for (let col = 0; col < 5; ++col) {
+
+} */
 
 const Board = document.querySelector('[data-gameboard-container]')
 const keyboard = document.querySelector('[data-keyboard]')
-let OpponentBoard = document.querySelectorAll('.game-rowP2')
+const OpponentBoard = document.querySelectorAll('.game-rowP2')
 const UpdatedBoard = ['']
 
 const WORD_LENGTH = 4
@@ -15319,7 +15318,7 @@ const msOffset = Date.now() - DaysOffset
 const Actual = msOffset / 3600 / 24000
 const wordOfTheDay = targetWords[Math.floor(Actual)]
 const alertContainer = document.querySelector('[data-alert-container]')
-let gameStart = false
+const gameStart = false
 // startGame()
 joinRoom()
 console.log(OpponentBoard)
