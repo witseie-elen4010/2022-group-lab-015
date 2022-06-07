@@ -30,7 +30,7 @@ app.use('/cdn', express.static('public'))
 
 // Set port to work on Azure as well
 const port = process.env.PORT || 3000
-const PORT = process.env.PORT || 8080
+const PORT = 8080
 
 app.listen(port)
 console.log('Express server running on port: ', port)
