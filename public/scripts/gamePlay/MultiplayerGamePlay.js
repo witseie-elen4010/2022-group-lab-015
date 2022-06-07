@@ -15502,7 +15502,6 @@ function checkWinOrLose (PlayerGuess, Tilearray) {
     localStorage.setItem('roomcode', reset)
     // redirect to dashBoard
     stopGame()
-    window.location.href = 'dashboard'
     return
   }
   // const FreePieces = Board.querySelectorAll(':not([data-letter])')
