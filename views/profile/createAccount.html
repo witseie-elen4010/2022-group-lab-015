@@ -48,7 +48,7 @@ you mention in the href above-->
             </div>
             <div class = "form-group">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" name="password" id="password" placeholder="password" required>
+                <input type="password" class="form-control" name="password" minlength="8" id="password" placeholder="password" required>
             </div>
             <div class = "form-group">
                 <label for="Rpassword" class="form-label">Verify Password</label>
@@ -60,7 +60,7 @@ you mention in the href above-->
             </div>
             <button type="submit" id="createAccount" class="btn btn-primary" disabled="disabled">Create Account</button> 
             <div class="modalcontainer" id="modal">
-                <div class="modalContent">
+                <div class="modalContent" id="modalbtn">
                    <!--<button type="button" class="button" id="modalbtn">Back to Login</span>-->
                   <!-- <p>Account has been successfully created, click the buton to login using your credentials</p>-->
                </div>
