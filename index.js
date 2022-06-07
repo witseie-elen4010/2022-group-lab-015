@@ -30,13 +30,13 @@ app.use('/account', AccountRoutes)
 app.use('/cdn', express.static('public'))
 
 // Set port to work on Azure as well
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 1337
 // const PORT = process.env.PORT || 1337
 
-// app.listen(port)
+app.listen(3000)
 // console.log('Express server running on port: ', port)
 
-app2.use(cors)
+// server(app).use(cors)
 server.listen(port, () => {
   console.log('server running on port: ', port)
 })
