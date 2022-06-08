@@ -4,7 +4,15 @@ const database = require('../database/databaseOperations')
 
 describe("querying database for users", () => {
     test("check username exists in database", async () => {
-        let isTrue = await database.DoesUserExistByUsername('sama')
+        jest.setTimeout(10000)
+        let username = "samma"
+        let name = "sam"
+        let surn = "maj"
+        let email = "sam@temp.com"
+        let pass = "g15CompetitiveWordle"
+        let newUser = await database.CreateUser(name, surn, email, username, pass)
+        let isTrue = await database.DoesUserExistByUsername('samma')
+        await database.DeleteUser(username, pass)
         expect(isTrue) .toBe(true)
 
     })
@@ -22,7 +30,7 @@ describe("creating a user profile", () => {
         let surn = "maj"
         let email = "sam@temp.com"
         let pass = "g15CompetitiveWordle"
-        let newUser = await database.CreateUser(name, surn, username, email, pass)
+        let newUser = await database.CreateUser(name, surn, email, username, pass)
         
         await database.DeleteUser(username, pass)
         expect(newUser) .toBe(true)
