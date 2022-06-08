@@ -4,7 +4,7 @@ const mssql = require('mssql')
 const config = {
   server: 'wordle-db.database.windows.net',
   database: 'wordle-db',
-  user: process.env.azureDBadmin,
+  user:   process.env.azureDBadmin,
   password: process.env.azureDBaccesscode,
   port: 1433,
   options: {
