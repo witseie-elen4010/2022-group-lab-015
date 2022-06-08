@@ -15499,8 +15499,10 @@ function checkWinOrLose (PlayerGuess, Tilearray) {
     socket.emit('on_win', (onWin))
     // Empty room
     const reset = 0
-    localStorage.setItem('roomcode', reset)
-    // redirect to dashBoard
+    const pid = window.setInterval(() => {
+      window.location.href = 'dashboard'
+      typeof pid !== 'undefined' && window.clearInterval(pid)
+    }, 1000)    // redirect to dashBoard
     stopGame()
     return
   }
