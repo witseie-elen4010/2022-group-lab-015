@@ -1,8 +1,13 @@
 // /////////////////////////////////////////////////////////
 // ///    Uncomment code once to test the backlog ////////
 // ///////////////////////////////////////////////////////
-// /*eslint-env jest*/
-// 'use strict'
+/* eslint-env jest */
+'use strict'
+test('Greet: hello', () => {
+  const greet = 'hello'
+  const output = 'hello'
+  expect(greet).toEqual(output)
+})
 // const database = require('../database/databaseOperations')
 
 // describe("querying database for users", () => {
@@ -49,7 +54,6 @@
 //     })
 // })
 
-
 // describe("creating a user profile", () => {
 //     test("check if new user created successfully in database", async () => {
 //         let username = "samma"
@@ -58,7 +62,7 @@
 //         let email = "sam@temp.com"
 //         let pass = "g15CompetitiveWordle"
 //         let newUser = await database.CreateUser(name, surn, email,username, pass)
-        
+
 //         await database.DeleteUser(username, pass)
 //         expect(newUser).toBe(true)
 
@@ -88,7 +92,7 @@
 //         let newPass = await database.UpdatePassword(username,newpass)
 //         await database.DeleteUser(username, pass)
 
-//         expect(newPass).toBe(true)    
+//         expect(newPass).toBe(true)
 //     })
 
 //     test("check if it failed to update", async () => {
@@ -100,7 +104,7 @@
 //         let oldPass = null
 //         let newUser = await database.CreateUser(name, surn, email,username, pass)
 //         let newPass = await database.UpdatePassword(username,oldPass)
-//         await database.DeleteUser(username, pass) 
+//         await database.DeleteUser(username, pass)
 
 //         expect(newPass).toBe(false)
 //     })
@@ -113,7 +117,7 @@
 //         let pass = "qewreyeuufdioijfodskgcvkgvkygvulhvt7yvlyuvfluyv gycrtc khvluvylijifdijodijjfduhdushfdjhdhfhdshfdshfhdshfdshfhdshududshfhdudhfhdfhhdudhdhfhdhufuhdhfduhuffdsuufdufhg15CompetitiveWordle"
 //         let newUser = await database.CreateUser(name, surn, email,username, pass)
 //         let newPass = await database.UpdatePassword(username,pass)
-//         await database.DeleteUser(username, pass) 
+//         await database.DeleteUser(username, pass)
 
 //         expect(newPass).toBe(true)
 //     })
@@ -134,5 +138,3 @@
 //         expect(retrPass).toBe(pass)
 //     })
 // })
-
-

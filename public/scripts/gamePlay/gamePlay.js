@@ -15299,7 +15299,7 @@ let col = 0
 const board = document.querySelectorAll('.game-row')
 const Board = document.querySelector('[data-gameboard-container]')
 const keyboard = document.querySelector('[data-keyboard]')
-const UpdatedBoard = ['']
+// const UpdatedBoard = ['']
 let boardState = []
 let enteredWord = ''
 
@@ -15308,7 +15308,7 @@ const FLIP_ANIMATION_DURATION = 500
 const DaysOffset = new Date(2022, 5, 4)
 const msOffset = Date.now() - DaysOffset
 const Actual = msOffset / 3600 / 24000
-let wordOfTheDay = targetWords[Math.floor(Actual)]
+const wordOfTheDay = targetWords[Math.floor(Actual)]
 const alertContainer = document.querySelector('[data-alert-container]')
 startGame()
 
