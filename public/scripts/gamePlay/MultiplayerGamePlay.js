@@ -15319,10 +15319,8 @@ const msOffset = Date.now() - DaysOffset
 const Actual = msOffset / 3600 / 24000
 const wordOfTheDay = targetWords[Math.floor(Actual)]
 const alertContainer = document.querySelector('[data-alert-container]')
-const gameStart = false
 // startGame()
 joinRoom()
-console.log(OpponentBoard)
 
 function startGame () {
   document.addEventListener('click', handleMouseClick)
@@ -15498,11 +15496,11 @@ function checkWinOrLose (PlayerGuess, Tilearray) {
     Notification('You won', 5000)
     socket.emit('on_win', (onWin))
     // Empty room
-    const reset = 0
     const pid = window.setInterval(() => {
+      localStorage.removeItem('roomcode')
       window.location.href = 'dashboard'
       typeof pid !== 'undefined' && window.clearInterval(pid)
-    }, 1000)    // redirect to dashBoard
+    }, 1000) // redirect to dashBoard
     stopGame()
     return
   }
