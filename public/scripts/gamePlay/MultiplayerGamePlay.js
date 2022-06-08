@@ -1,4 +1,8 @@
 'use strict'
+
+let socket = io.connect('https://g15competitivewordle.azurewebsites.net') // ('http://localhost:3000')
+const ENDPOINT = 'https://g15competitivewordle.azurewebsites.net'
+const roomcode = localStorage.getItem('roomcode')
 // Every 5 letter word accepted by application
 const dictionary = [
   'aahed',
@@ -15296,24 +15300,33 @@ const targetWords = [
 
 let row = 0
 let col = 0
-const board = document.querySelectorAll('.game-row')
+const board1 = document.querySelectorAll('.game-row')
+const onWin = 'Won!'
+
+/* for (let col = 0; col < 5; ++col) {
+
+} */
+
 const Board = document.querySelector('[data-gameboard-container]')
 const keyboard = document.querySelector('[data-keyboard]')
+const OpponentBoard = document.querySelectorAll('.game-rowP2')
 const UpdatedBoard = ['']
-let boardState = []
-let enteredWord = ''
 
 const WORD_LENGTH = 4
 const FLIP_ANIMATION_DURATION = 500
 const DaysOffset = new Date(2022, 5, 4)
 const msOffset = Date.now() - DaysOffset
 const Actual = msOffset / 3600 / 24000
-let wordOfTheDay = targetWords[Math.floor(Actual)]
+const wordOfTheDay = targetWords[Math.floor(Actual)]
 const alertContainer = document.querySelector('[data-alert-container]')
-startGame()
+const gameStart = false
+// startGame()
+joinRoom()
+console.log(OpponentBoard)
 
 function startGame () {
   document.addEventListener('click', handleMouseClick)
+  // document.addEventListener('keydown', handleKeyPressed)
 }
 
 function stopGame () {
@@ -15328,8 +15341,6 @@ function handleMouseClick (clickEvent) {
   }
 
   if (clickEvent.target.matches('[data-entr]')) {
-    saveBoardState(enteredWord, row)
-    enteredWord = ''
     submitGuess()
     return
   }
@@ -15342,8 +15353,6 @@ function handleMouseClick (clickEvent) {
 function handleKeyPressed (pressedKey) {
   console.log(pressedKey)
   if (pressedKey.key === 'Enter') {
-    saveBoardState(enteredWord, row)
-    enteredWord = ''
     submitGuess()
     return
   }
@@ -15356,17 +15365,14 @@ function handleKeyPressed (pressedKey) {
   // If key matches letters from A -> Z
   if (pressedKey.key.match(/^[a-z]$/)) {
     pressKey(pressedKey.key)
-    enteredWord = enteredWord + pressedKey.key
-   // console.log(enteredWord)
   }
 }
 
 function pressKey (Pressedkey) {
 // restrict guess to a five letter word
   if (col > WORD_LENGTH) return
-  board[row].querySelectorAll('.guessBox')[col].innerText = Pressedkey.toUpperCase()
-  board[row].querySelectorAll('.guessBox')[col].dataset.state = 'active'
-  enteredWord = enteredWord + Pressedkey
+  board1[row].querySelectorAll('.guessBox')[col].innerText = Pressedkey.toUpperCase()
+  board1[row].querySelectorAll('.guessBox')[col].dataset.state = 'active'
   if (col < 5) ++col
 }
 
@@ -15374,21 +15380,20 @@ function deleteEvent () {
   const myCol = col
   if ((myCol - 1) < -1) return
   if (myCol === 0) {
-    board[row].querySelectorAll('.guessBox')[col].innerText = ''
-    delete board[row].querySelectorAll('.guessBox')[col].dataset.state
+    board1[row].querySelectorAll('.guessBox')[col].innerText = ''
+    delete board1[row].querySelectorAll('.guessBox')[col].dataset.state
   }
 
   if (col > 0) {
     --col
-    board[row].querySelectorAll('.guessBox')[col].innerText = ''
-    delete board[row].querySelectorAll('.guessBox')[col].dataset.state
+    board1[row].querySelectorAll('.guessBox')[col].innerText = ''
+    delete board1[row].querySelectorAll('.guessBox')[col].dataset.state
   }
 }
 
 function submitGuess () {
   // convert active tiles into an array
   const activeTiles = [...getActiveTiles()]
-  let WordofDay = wordOfTheDay
   if (col < 5) {
     Notification('Word Too Short')
     VibrateTiles()
@@ -15403,47 +15408,8 @@ function submitGuess () {
       return
     }
     stopGame()
-    let numofcorrect = 0
-    activeTiles.forEach((tile,index) => { 
-      const letter = (tile.innerText).toLowerCase()
-      const letter2 = letter.toUpperCase()
-      const key = keyboard.querySelector(`[data-key="${letter2}"]`)
-      setTimeout(() => {
-        tile.classList.add('flip')
-      }, index * FLIP_ANIMATION_DURATION / 2)
-    
-      // By the end of the flip
-      tile.addEventListener('transitionend', () => {
-        // Remove the animation
-        tile.classList.remove('flip')
-        if (WordofDay[index] === tile.innerText.toLowerCase()) {
-          numofcorrect +=1
-          WordofDay = WordofDay.replace(tile.innerText,' ')
-          tile.dataset.state = 'correct-location'
-          key.classList.add('correct')
-        } else if (WordofDay.includes(letter) && letter !== WordofDay[index]) {
-          WordofDay = WordofDay.replace(tile.innerText.toLowerCase(),' ')
-          tile.dataset.state = 'wrong-location'
-          key.classList.add('wrong-location')
-        } else {
-          tile.dataset.state = 'wrong'
-          key.classList.add('wrong')
-        }
-        // Restart game after we reached end of checks
-        if (index === 4) {
-          tile.addEventListener('transitionend', () => {
-            if (row < 6) {
-              ++row
-              col = 0
-              startGame()
-            }
-           checkWinOrLose(numofcorrect)
-          }, { once: true })
-        }
-      }, { once: true })
-  })
-}
-
+    activeTiles.forEach((...tiles) => FlipTiles(...tiles, PlayerGuess))
+  }
 }
 
 function getActiveTiles () {
@@ -15474,81 +15440,115 @@ function Notification (message, duration = 1000) {
 // vibrate tiles
 function VibrateTiles () {
   for (let column = 0; column <= col; ++column) {
-    board[row].querySelectorAll('.guessBox')[column].classList.add('shake')
-    board[row].querySelectorAll('.guessBox')[column].addEventListener('animationend', () => {
-      // remove animation class after vibration
-      board[row].querySelectorAll('.guessBox')[column].classList.remove('shake')
+    board1[row].querySelectorAll('.guessBox')[column].classList.add('shake')
+    board1[row].querySelectorAll('.guessBox')[column].addEventListener('animationend', () => {
+      // r emove animation class after vibration
+      board1[row].querySelectorAll('.guessBox')[column].classList.remove('shake')
     }, { once: true })
   }
 }
 
+function FlipTiles (tile, index, array, guess) {
+  const letter = (tile.innerText).toLowerCase()
+  const letter2 = letter.toUpperCase()
+  const key = keyboard.querySelector(`[data-key="${letter2}"]`)
+  setTimeout(() => {
+    tile.classList.add('flip')
+  }, index * FLIP_ANIMATION_DURATION / 2)
 
-function checkWinOrLose (numofcorrect) {
-  if (numofcorrect === 5) {
+  // By the end of the flip
+  tile.addEventListener('transitionend', () => {
+    // Remove the animation
+    tile.classList.remove('flip')
+    if (wordOfTheDay[index] === letter) {
+      tile.dataset.state = 'correct-location'
+      key.classList.add('correct')
+    } else if (wordOfTheDay.includes(letter)) {
+      tile.dataset.state = 'wrong-location'
+      key.classList.add('wrong-location')
+    } else {
+      tile.dataset.state = 'wrong'
+      key.classList.add('wrong')
+    }
+    // Restart game after we reached end of checks
+    if (index === array.length - 1) {
+      tile.addEventListener('transitionend', () => {
+        if (row < 6) {
+          ++row
+          col = 0
+          startGame()
+        }
+        const rowSend = (row - 1)
+        UpdateBoard(rowSend, array)
+        const payLoad = {
+          Row: rowSend,
+          board: UpdatedBoard
+        }
+        /* console.log('Array: ', array[1].dataset.state)
+        console.log('row number: ', row) */
+        socket.emit('BoardUpdate', payLoad)
+        checkWinOrLose(guess, array)
+      }, { once: true })
+    }
+  }, { once: true })
+}
+
+function checkWinOrLose (PlayerGuess, Tilearray) {
+  if (PlayerGuess === wordOfTheDay.toLocaleUpperCase()) {
     Notification('You won', 5000)
-    setTimeout(function () {
-      // your code to be executed after 1 second
-      boardState = {}
-     window.localStorage.clear()
-      window.location.assign('/play/won')
-    }, 2000)
+    socket.emit('on_win', (onWin))
+    // Empty room
+    const reset = 0
+    localStorage.setItem('roomcode', reset)
+    // redirect to dashBoard
     stopGame()
     return
   }
-  
+  // const FreePieces = Board.querySelectorAll(':not([data-letter])')
+
   if (row > 5) {
     Notification('word was ' + wordOfTheDay.toUpperCase(), null)
-    setTimeout(function () {
-        // your code to be executed after 1 second
-        boardState = {}
-        window.localStorage.clear()
-       window.location.assign('/play/tryAgain')
-      }, 2000)
     stopGame()
   }
-  enteredWord = enteredWord.slice(0, -1)
 }
 
-function saveBoardState(word_, row_) {
-  let temp = {
-    row: row_, 
-    word: word_
+function joinRoom () {
+  // Uncomment for Azure (maybe)
+  socket = io(ENDPOINT)
+  const UserData = {
+    room: roomcode
   }
-
-  //put the latest word for that row and save updated obj
-  boardState.push(temp)
-  console.log(row_)
-
-  //if word for that row is incomplete or is already there, remove it
-  for (let i=0; i<boardState.length; i++) {
-    //console.log(boardState[i].word)
-    if (boardState[i].word.length < 4)
-    {
-      //console.log(boardState[i].word)
-      boardState.pop()
-    }
-  }
-  
-  localStorage.setItem("board", JSON.stringify(boardState))
+  socket.emit('join_room', UserData)
+  // Client should do something if the room is full
+  socket.on('RoomCapacity', (data) => {
+    // Take user back to dash board if room is full
+    Notification(data.message, 5000)
+    window.location.href = 'dashboard'
+    // Alert user that the room is full
+  })
 }
 
-window.addEventListener('load', (event) => {
-  console.log("Page has been refreshed")
+socket.on('gameStart', (status) => {
+  startGame()
 })
-window.onload = (event) => {
 
-  let boardState = localStorage.getItem("board")
-  boardState = JSON.parse(boardState)
-  console.log(boardState)
+socket.on('OpponentBoard', (data) => {
+  updateOpponentBoard(data.Row, data.board)
+})
 
-  const newRow = boardState.length
-  for (let i=0; i<newRow; i++) {
-    for (let j=0; j<5; j++) {
-      board[i].querySelectorAll('.guessBox')[j].innerText = boardState[i].word[j]
-      if (j===4){
-        submitGuess()
-        row++
-      }
-    }
+socket.on('opponent_win', () => {
+  alert('You Lost!')
+  window.location.href = 'dashboard'
+})
+
+function UpdateBoard (rowSend, arr) {
+  for (let column = 0; column < 5; ++column) {
+    UpdatedBoard[column] = (arr[column].dataset.state).toString()
+  }
+}
+
+function updateOpponentBoard (theRow, theTiles) {
+  for (let column = 0; column < 5; ++column) {
+    OpponentBoard[theRow].querySelectorAll('.guessBox')[column].dataset.state = theTiles[column]
   }
 }

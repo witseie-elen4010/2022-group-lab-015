@@ -9,7 +9,15 @@ gamePlay.get('/startgame', function (req, res) {
   res.sendFile(path.join(__dirname, '../views', 'gameplay', 'play.html'))
 })
 
-gamePlay.get('/instructions', function(req,res) {
+gamePlay.get('/dashboard', function (req, res) {
+  res.sendFile(path.join(__dirname, '../views', 'gameplay', 'dashboard.html'))
+})
+
+gamePlay.get('/multiplayer', function (req, res) {
+  res.sendFile(path.join(__dirname, '../views', 'gameplay', 'multiplayer.html'))
+})
+
+gamePlay.get('/instructions', function (req, res) {
   res.sendFile(path.join(__dirname, '../views', 'gameplay', 'GameInstructions.html'))
 })
 
@@ -30,6 +38,16 @@ gamePlay.post('/api/play', function (req, res) {
     res.redirect('/play/tryAgain')
   }
 })
+
+/* gamePlay.post('/api/dashboard', function (req, res) {
+  const playerGuess = req.body.guess.toLowerCase()
+  const wordOfDay = setWordOfTheDay()[1]
+  if (playerGuess === wordOfDay) {
+    res.redirect('/play/won')
+  } else {
+    res.redirect('/play/tryAgain')
+  }
+}) */
 
 function setWordOfTheDay () {
   const word = 'speak'

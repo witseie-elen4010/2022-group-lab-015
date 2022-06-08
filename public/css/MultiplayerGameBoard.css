@@ -1,16 +1,26 @@
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body {
-    width: 100%;
-    background-color: #000;
-    height:100vh;
-    font-size: 14px;
-    display: flex;
+.player1-side-left, .player2-side-right {
+    height:50vh;
+    width:100%;
     flex-direction: column;
+    padding: 1em;
+}
+
+.player1-side-left{
+    background:black;
+    display: flex;
+    align-items: center;
+}
+
+.player2-side-right {
+    background:lightblue;
+    display: flex;
+    /*align-items: center;*/
+}
+
+@media screen and (min-width:768px) {
+    .player1-side-left, .player2-side-right {
+        height:100vh;
+    }
 }
 
 
@@ -30,6 +40,11 @@ body {
 }
 
 .game-row {
+    display: flex;
+    flex-direction: row;
+    }
+
+.game-rowP2 {
     display: flex;
     flex-direction: row;
     }
@@ -57,18 +72,18 @@ border-color: hsl(200, 1%, 34%);
 }
 
 .guessBox[data-state ="wrong"] {
-   background-color: grey !important;
-    color : white !important;
+    border:none;
+    background-color: hsl(240, 2%, 23%);
     }
 
 .guessBox[data-state ="wrong-location"] {
-    background-color: orange !important;
-    color : white !important;
+        border:none;
+        background-color: hsl(49, 51%, 47%);
         }
 
 .guessBox[data-state ="correct-location"] {
-    background-color: green !important;
-    color : white !important;
+    border:none;
+    background-color: green;
     }
 
 .guessBox.shake {
@@ -92,11 +107,16 @@ border-color: hsl(200, 1%, 34%);
 }
 
 .keyboard button {
-    background-color: #000;
-    color: #fff;
+    background-color: hsl(
+       var(--hue, 200),
+       var(--saturation, 1%), 
+       var(--lightness,51%));
+    border: 1px;
+    color: white;
     outline: none;
-    border: 1px solid #353535;
+    border-radius: 0.25;
     padding: 1em;
+    align-items: center;
     cursor: pointer;
     margin-bottom: 0.4em;
     border-radius: 4px;
@@ -104,18 +124,19 @@ border-color: hsl(200, 1%, 34%);
 
 /*Reflections on keyboard according to placements*/
 .keyboard button.wrong {
-    background-color: grey !important;
-    color : white !important;
+    --lightness: 23%;
 }
 
 .keyboard button.wrong-location {
-    background-color: orange !important;
-    color : white !important;
+--hue: 49;
+--saturation: 51%;
+--lightness:47%;
 }
 
 .keyboard button.correct {
-    background-color: green !important;
-    color : white !important;
+    --hue: 115;
+    --saturation: 29%;
+    --lightness:43%;
 }
 
 .alert-container {
@@ -145,11 +166,4 @@ border-color: hsl(200, 1%, 34%);
 
 .alert.hide {
     opacity: 0;
-}
-#container {
-    display: flex;
-    background-color: #191919;
-    color: aliceblue;
-    align-items: center;
-    flex-direction: column;
 }

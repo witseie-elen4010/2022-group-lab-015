@@ -52,7 +52,7 @@ html, body {
 }
 
 header {
-    border-bottom: 1px solid rgb(58, 58, 60);
+    border-bottom: 1px solid rgb(27, 27, 27);
 
 }
 
@@ -78,6 +78,61 @@ header {
     font-weight: bold;
     
 }
-button:active {
-    transform: scaele(0.98);
+.button:active {
+    transform: scale(0.98);
 }
+.button:hover {
+    background: #3333;
+}
+
+/*modal pop up window account creation*/
+.modalcontainer {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left:0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.3);
+}
+
+.modalcontent {
+    background-color: aliceblue;
+    margin: 20% auto;
+    padding: 20px;
+    width: 70%;
+    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
+}
+
+/* for forgotPassword page*/
+.form{
+    width:500px;
+    background:black;
+    padding:20px;
+    font-size:20px;
+    font-family:'Times New Roman';
+    color:whitesmoke;
+    margin:auto;
+ }
+ .input[type = text]{
+    padding:5px;
+    width:80%;
+    font-size:18px;
+    border-radius:0 10px 0 0;
+ }
+ .input[type = submit]{
+    padding:5px;
+    width:20;
+    font-size:18px;
+    border-radius:0 10px 0 0;
+    border:none;
+ }
+ .ForgotPassbutton{
+    padding:5px;
+    width:20;
+    font-size:18px;
+    border-radius:0 10px 0 0;
+    border:none;
+ }
